@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="jumbotron mt-4">
+    <h1 class="border-bottom pb-2">You have been logged out.</h1>
+  </div>
+
+  <div class="content-section">
+
+      <div class="border-top pt-3">
+          <small class="text-muted">Log In Again? <a class="ml-2" href="{% url 'login' %}">Click Here</a></small>
+      </div>
+  </div>
+
+{% endblock content %}
