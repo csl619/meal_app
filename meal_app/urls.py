@@ -20,6 +20,7 @@ from django.urls import path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', landing_page, name='home'),
 ]
 
 if settings.DEBUG:
