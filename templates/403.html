@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-9 col-xl-6">
+      <div class="jumbotron round_error">
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="col-md-5 d-flex align-items-center justify-content-center">
+            <img src="{% static 'site/error_icon.png' %}" class="error_icon" alt="error_icon">
+          </div>
+          <div class="col-md-7">
+            <h1>Oops... </h1>
+            <p>You do not have permission to view this page. Please contact your administrator if you continue to see this error.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
