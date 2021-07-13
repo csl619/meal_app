@@ -28,9 +28,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'n=3^h8%2i0#us5t!pg)in-r*906_gihg#_!_f(vuzp8^166taa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.getenv('DEBUG_TYPE') == 'True')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    '0.0.0.0',
+    'localhost',
+    f'{os.getenv("SITE_URL")}',
+    f'{os.getenv("SERVER_IP")}',
+    f'{os.getenv("LOCAL_IP")}'
+]
 
 
 # Application definition
@@ -80,8 +87,11 @@ WSGI_APPLICATION = 'meal_app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': os.getenv("DB_NAME"),
+        'USER': os.getenv("DB_USER"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'CONN_MAX_AGE': 60,
     }
 }
 
@@ -123,3 +133,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+EMAIL_USE_TLS = os.getenv('ADMIN_TLS')
+EMAIL_HOST = os.getenv('ADMIN_HOST')
+EMAIL_HOST_USER = os.getenv('ADMIN_EMAIL')
+EMAIL_HOST_PASSWORD = os.getenv('ADMIN_PASSWORD')
+EMAIL_PORT = os.getenv('ADMIN_PORT')
+EMAIL_SUBJECT_PREFIX = os.getenv('ADMIN_PREFIX')
+
+ADMINS = [('Chris Lowe', 'csl619@outlook.com'), ]
+SERVER_EMAIL = os.getenv("ADMIN_EMAIL")
