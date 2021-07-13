@@ -39,6 +39,13 @@ ALLOWED_HOSTS = [
     f'{os.getenv("LOCAL_IP")}'
 ]
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "staticfiles"),
+]
+
+FIXTURE_DIRS = [
+    os.path.join(BASE_DIR, "fixtures"),
+]
 
 # Application definition
 
@@ -66,7 +73,7 @@ ROOT_URLCONF = 'meal_app.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -133,6 +140,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 EMAIL_USE_TLS = os.getenv('ADMIN_TLS')
 EMAIL_HOST = os.getenv('ADMIN_HOST')
 EMAIL_HOST_USER = os.getenv('ADMIN_EMAIL')
