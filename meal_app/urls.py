@@ -17,7 +17,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
-from django.urls import path
+from django.urls import path, include
 from landing.views import landing_page
 
 urlpatterns = [
@@ -31,6 +31,11 @@ urlpatterns = [
         'logout/',
         auth_views.LogoutView.as_view(template_name="users/logout.html"),
         name='logout'),
+    path('ajax/', include('ajax.urls')),
+    path('api/', include('api.urls')),
+    # path('user/', include('users.urls')),
+    path('ingredients/', include('ingredients.urls')),
+    path('meals/', include('meals.urls')),
 ]
 
 if settings.DEBUG:
