@@ -61,10 +61,29 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # external apps
     'crispy_forms',
+    'rest_framework',
     # internal apps
+    'ingredients.apps.IngredientsConfig',
     'landing.apps.LandingConfig',
+    'meals.apps.MealsConfig',
+    'planner.apps.PlannerConfig',
     'users.apps.UsersConfig',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+        'rest_framework.renderers.TemplateHTMLRenderer',
+        'rest_framework_datatables.renderers.DatatablesRenderer',
+    ),
+    'DEFAULT_FILTER_BACKENDS': (
+        'rest_framework_datatables.filters.DatatablesFilterBackend',
+    ),
+    'DEFAULT_PAGINATION_CLASS': (
+        'rest_framework_datatables.pagination.DatatablesPageNumberPagination'),
+    'PAGE_SIZE': 15,
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
