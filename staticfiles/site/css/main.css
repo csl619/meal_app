@@ -308,6 +308,9 @@ table.dataTable.table-sm > thead > tr > th {
 #new_note, #new_comm {
   width: 100%;
 }
+.day_summary {
+  min-height: 500px;
+}
 /* FOOTER */
 
 .footer {
