@@ -311,6 +311,12 @@ table.dataTable.table-sm > thead > tr > th {
 .day_summary {
   min-height: 500px;
 }
+.remove-form-row, .add-form-row {
+  height:40px;
+  width: 40px;
+  padding: 20px, 10px;
+
+}
 /* FOOTER */
 
 .footer {

@@ -5,6 +5,7 @@ from ingredients.models import Ingredient
 
 
 # --------------------- INGREDIENT AJAX CALLS ------------------------
+# Add ingredient via new meal page
 @login_required
 def add_ingredient(request):
     ingredient = request.GET.get('ing')
@@ -23,4 +24,16 @@ def add_ingredient(request):
         data['message'] = (
             "Cannot add ingredient as there is already an ingredient in the "
             "system with this name.")
+    return JsonResponse(data)
+# reload ingredient list once new ingredient is added
+@login_required
+def update_ingredients(request):
+    ingredients = Ingredient.objects.filter(
+        related_user=request.user).order_by('name')
+    data = {
+        'ingredients': '<option value="">---------</option>',
+        }
+    for ingredient in ingredients:
+        data['ingredients'] += (
+            f'<option value="{ingredient.pk}">{ingredient.name}</option>')
     return JsonResponse(data)

@@ -45,7 +45,7 @@
             <div class="row form-row spacer">
               {% crispy form %}
               <div class="col-md-1 d-flex justify-content-center align-items-start">
-                <input type="submit" name="+" value='+' class="btn btn-success add-form-row" id="ings_submit-id-{{forloop.counter0}}">
+                <input type="submit" name="+" value='+' class="btn btn-success add-form-row d-flex align-items-center" id="ings_submit-id-{{forloop.counter0}}">
               </div>
               {{form.id}}
             </div>
@@ -85,7 +85,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}">
+          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}" data-update_url="{% url 'ajax_update_ingredients' %}">
             Add Ingredient
           </a>
         </div>
