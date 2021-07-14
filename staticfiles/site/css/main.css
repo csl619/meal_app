@@ -4,6 +4,7 @@
 body {
   background-color: #f7f7f7;
   font-size: 10px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .page_container {
@@ -108,8 +109,8 @@ main {
 .btn-info:not(:disabled):not(.disabled):active, .btn-info:not(:disabled):not(.disabled).active,
 .show > .btn-info.dropdown-toggle {
   color: #fff;
-  background-color: #b6bccf;
-  border-color: #b6bccf;
+  background-color: #ffac94;
+  border-color: #ffac94;
 }
 
 .btn-info:not(:disabled):not(.disabled):active:focus, .btn-info:not(:disabled):not(.disabled).active:focus,
@@ -153,7 +154,7 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button { margin-left: 20px; }
 
 .card-col {
-  background-color: rgba(65, 118, 144, 0.75) !important;
+  background-color: #ff764e !important;
   color: white !important;
   text-decoration: none !important;
 }
