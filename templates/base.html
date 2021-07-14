@@ -13,6 +13,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <!-- Icon Files -->
     <script src="https://kit.fontawesome.com/1005194a7a.js"></script>
     <!-- Import Bootstrap -->
@@ -44,16 +47,20 @@
               <ul class="navbar-nav ml-auto align-items-center flex-md-row justify-content-end">
                 {% if user.is_authenticated %}
                 <li class="nav-item ml-4 mr-4 h-100">
-                  <a class="nav-link" href="">MEALS</a>
+                  <a class="nav-link" href="{% url 'meals' %}">MEALS</a>
                 </li>
                 <li class="nav-item ml-4 mr-4 h-100">
-                  <a class="nav-link" href="">INGREDIENTS</a>
+                  <a class="nav-link" href="{% url 'ingredients' %}">INGREDIENTS</a>
+                </li>
+                <li class="nav-item ml-4 mr-4 h-100">
+                  <a class="nav-link" href="">WEEK HISTORY</a>
                 </li>
                 <li class="nav-item ml-md-4 mr-md-2 dropdown d-flex align-items-center">
                   <a name="user_options" aria-label="user_options" class="nav-link profile_icon d-flex align-content-middle justify-content-center" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
                     <i class="fas fa-user p_icon"></i>
                   </a>
                   <div class="dropdown-menu dropdown-menu-right dropdown-pull-right text-right ml-2" id="navbarDropdown-items" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="">PROFILE</a>
                     <a class="dropdown-item" href="{% url 'logout' %}">LOGOUT</a>
                   </div>
                 </li>

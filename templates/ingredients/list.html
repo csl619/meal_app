@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="jumbotron pt-4 mt-2 bg-white">
+    <h3 class="border-bottom pb-2 mb-4">{{ title }}</h3>
+    <div class="">
+      <table id="ingredient_table" style="width:100%;" data-new_ingredient="{% url 'new_ingredient' %}" class="table table-bordered table-sm" data-server-side="true" data-ajax="/api/ingredients/?format=datatables">
+        <thead class="thead-light">
+          <tr>
+            <th class="align-middle text-center" scope="col">Name</th>
+            <th class="align-middle text-center" scope="col">Date Added</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="newIngredientModal" tabindex="-1" role="dialog" aria-labelledby="title">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form id='new_ingredient' action="{% url 'new_ingredient' %}" data-token="{{ csrf_token }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="title">New Ingredient</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id='actionText'>Please enter the ingredient name:</p>
+            {% crispy ingredientForm %}
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button id='add_but' class='btn btn-info' type="submit" form="new_ingredient">Add Ingredient</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+{% endblock content %}

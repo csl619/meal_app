@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+  <form id='new_meal_form' action="{% url 'new_meal' %}" data-token="{{ csrf_token }}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card mb-2">
+          <h5 class="card-header card-col" id="mainInfoHead" role="tab">
+              {{ title }}
+          </h5>
+          <div class="card-body ml-4 mr-4">
+            {% crispy mealForm %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card mb-2">
+          <h5 class="card-header card-col" id="mainInfoHead" role="tab">
+              Ingredients
+          </h5>
+          <div class="card-body ml-4 mr-4" id="ings_forms">
+            <div class="row ">
+              <div class="col-md-11">
+                <div class="row">
+                  <div class="col-sm-4">
+                    Ingredient<span class="asteriskField">*</span>
+                  </div>
+                  <div class="col-sm-4">
+                    Amount<span class="asteriskField">*</span>
+                  </div>
+                  <div class="col-sm-4">
+                    Unit<span class="asteriskField">*</span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-1">
+              </div>
+            </div>
+            {{ formset.management_form }}
+            {% for form in formset %}
+            <div class="row form-row spacer">
+              {% crispy form %}
+              <div class="col-md-1 d-flex justify-content-center align-items-start">
+                <input type="submit" name="+" value='+' class="btn btn-success add-form-row" id="ings_submit-id-{{forloop.counter0}}">
+              </div>
+              {{form.id}}
+            </div>
+            {% endfor %}
+            <div class="row justify-content-left">
+              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-target="#newIngredientModal">
+                <i class="fas fa-plus mr-3"></i>
+                Add Missing Ingredient
+              </a>
+              <p class='mb-0'><small id='ingredient_added' class='d-none'></small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <div class="col-12 d-flex align-items-center justify-content-between mt-6 mb-4">
+        <a href="{% url 'meals' %}" class="btn btn-danger mr-2">Cancel</a>
+        <button class="btn btn-info" type="submit" name="{% if edit %}Edit{% else %}Add{% endif %} Meal">{% if edit %}Edit{% else %}Add{% endif %} Meal</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="modal fade" id="newIngredientModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="poTitle">Add Missing Ingredient</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id='actionText'>Please enter the ingredient name:</p>
+          {% crispy ingredientForm %}
+          <p class='mb-0 text-danger'><small id='ingredient_failed' class='d-none'></small></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}">
+            Add Ingredient
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
