@@ -1,0 +1,10 @@
+[
+  {"model": "meals.mealcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Chinese",
+      "date_added": "2021-07-14",
+      "related_user": "1"
+    }
+  }
+]
