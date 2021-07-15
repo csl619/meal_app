@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from ingredients.forms import NewIngredientForm
-from .forms import NewMealForm, ingredient_formset
+from .forms import NewMealForm, ingredient_formset, NewCategoryForm
 from .models import MealIngredient, Meal
 from .scripts.form_save import meal_form_save, ingredient_save
 
@@ -59,6 +59,7 @@ def new_meal(request):
     return render(request, template_name, {
         'mealForm': mealForm,
         'ingredientForm': NewIngredientForm(prefix='ing'),
+        'categoryForm': NewCategoryForm(prefix='cat'),
         'formset': formset,
         'title': title,
     })
