@@ -70,7 +70,7 @@ $(document).ready( function () {
             {"class" : "align-middle text-center",
               "data": "id", "name": "id",
               "render": function ( data, type, row, meta ) {
-                return "<a class='client_link btn btn-sm btn-secondary' href='/meals/"+data+"/'><i class='far fa-folder-open mr-1'></i>View</a>";
+                return "<a class='btn btn-sm btn-secondary' href='/meals/"+data+"/'><i class='far fa-folder-open mr-1'></i>View</a>";
               }
             },
         ],
