@@ -33,7 +33,7 @@ urlpatterns = [
         name='logout'),
     path('ajax/', include('ajax.urls')),
     path('api/', include('api.urls')),
-    # path('user/', include('users.urls')),
+    path('user/', include('users.urls')),
     path('ingredients/', include('ingredients.urls')),
     path('meals/', include('meals.urls')),
 ]
