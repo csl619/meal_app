@@ -10,4 +10,10 @@ urlpatterns = [
     path(
         'update_ingredients/', views.update_ingredients,
         name='ajax_update_ingredients'),
+    path(
+        'add_category', views.add_category,
+        name='ajax_new_category'),
+    path(
+        'update_categories/', views.update_categories,
+        name='ajax_update_categories'),
 ]

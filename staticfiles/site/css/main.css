@@ -121,6 +121,10 @@ input::-webkit-inner-spin-button { margin-left: 20px; }
 .fa-caret-square-down {
   font-size: 1.5rem;
 }
+.modal-header, .close {
+  background-color: #ff764e;
+  color: white !important;
+}
 .r_align {
   text-align: right;
 }
