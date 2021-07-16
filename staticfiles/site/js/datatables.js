@@ -65,8 +65,10 @@ $(document).ready( function () {
               }
             },
             {"class" : "align-middle text-center", "data": "related_category.name", "name": "related_category.name"},
-            {"class" : "align-middle text-center", "data": "last_planned", "name": "last_planned", 'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
-            {"class" : "align-middle text-center", "data": "date_added", "name": "date_added", 'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
+            {"class" : "align-middle text-center", "data": "last_planned", "name": "last_planned",
+              'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
+            {"class" : "align-middle text-center", "data": "date_added", "name": "date_added",
+              'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
             {"class" : "align-middle text-center",
               "data": "id", "name": "id",
               "render": function ( data, type, row, meta ) {

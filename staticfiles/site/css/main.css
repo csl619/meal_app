@@ -183,7 +183,7 @@ table.dataTable.table-sm > thead > tr > th {
   margin-top: 20px !important;
 }
 .day_summary {
-  min-height: 500px;
+  min-height: 200px;
 }
 /* FOOTER */
 .footer {
