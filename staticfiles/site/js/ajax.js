@@ -1,83 +1,65 @@
-// add ingredient via new meal page
-$(document).on('click','a[id^=add_ing_but]', function(event) {
+// add ingredient or category via new meal page
+$(document).on('click','#add_cat_but, #add_ing_but', function(event) {
   event.preventDefault()
-  var url = $(this).attr("data-url");
-  var update_url = $(this).attr("data-update_url");
-  var ingredient = $("input[id=id_ing-name]").val();
-  if(ingredient != ''){
+  var url = $(this).data("url");
+  var update_url = $(this).data("update-url");
+  var sub_type = $(this).data("sub-type");
+  var failed = '#' + sub_type + '_failed';
+  var added = '#' + sub_type + '_added';
+  var modal = '#new_' + sub_type + '_modal';
+  var {dropdowns, item} = check_category(sub_type)
+  if(!!item.val()){
     $.ajax({
       url: url,
       data: {
-        'ing': ingredient,
+        'item': item.val(),
       },
       success: function (data) {
-        if (data.ingredient_exists) {
-          $("#ingredient_failed").html(data.message);
-          $("#ingredient_failed").removeClass("d-none");
-          setTimeout(function(){$("#ingredient_failed").addClass("d-none")}, 3000);
+        if (data.exists) {
+          message_wait_and_hide(failed, data.message)
         }
         else {
-          $('#newIngredientModal').modal('toggle');
-          $("#ingredient_added").html(data.message);
-          $("#ingredient_added").removeClass("d-none");
-          setTimeout(function(){$("#ingredient_added").addClass("d-none")}, 3000);
-          $.ajax({
-            url: update_url,
-            success: function (data) {
-              var ingredient_drops = $('select[id^=id_ings-][id$=-related_ingredient]')
-              for (var i = 0; i < ingredient_drops.length; i++) {
-                t = $(ingredient_drops[i]).children("option").filter(":selected").text()
-                v = $(ingredient_drops[i]).children("option").filter(":selected").val()
-                $(ingredient_drops[i]).html(data['ingredients']);
-                $(ingredient_drops[i]).children("option").filter(":selected").text(t);
-                $(ingredient_drops[i]).children("option").filter(":selected").val(v);
-              }
-              $('.bootstrap-select').find('.selectpicker').selectpicker('refresh');
-            }
-          });
+          message_wait_and_hide(added, data.message)
+          $(modal).modal('hide');
+          $(item).val("");
+          update_dropdowns(dropdowns, update_url)
         }
       }
     });
   }
 });
-$(document).on('click','a[id^=add_cat_but]', function(event) {
-  event.preventDefault()
-  var url = $(this).attr("data-url");
-  var update_url = $(this).attr("data-update_url");
-  var category = $("input[id=id_cat-name]").val();
-  if(category != ''){
-    $.ajax({
-      url: url,
-      data: {
-        'cat': category,
-      },
-      success: function (data) {
-        if (data.category_exists) {
-          $("#category_failed").html(data.message);
-          $("#category_failed").removeClass("d-none");
-          setTimeout(function(){$("#category_failed").addClass("d-none")}, 3000);
-        }
-        else {
-          $('#newCategoryModal').modal('toggle');
-          $("#category_added").html(data.message);
-          $("#category_added").removeClass("d-none");
-          setTimeout(function(){$("#category_added").addClass("d-none")}, 3000);
-          $.ajax({
-            url: update_url,
-            success: function (data) {
-              var meal_drops = $('select[id=id_meal-related_category]')
-              for (var i = 0; i < meal_drops.length; i++) {
-                t = $(meal_drops[i]).children("option").filter(":selected").text()
-                v = $(meal_drops[i]).children("option").filter(":selected").val()
-                $(meal_drops[i]).html(data['categories']);
-                $(meal_drops[i]).children("option").filter(":selected").text(t);
-                $(meal_drops[i]).children("option").filter(":selected").val(v);
-              }
-              $('.bootstrap-select').find('.selectpicker').selectpicker('refresh');
-            }
-          });
-        }
-      }
-    });
+// function to show message wait 3s and then add d-none class to hide element
+function message_wait_and_hide(e, m) {
+  $(e).html(m).removeClass("d-none");
+  setTimeout(function(){$(e).addClass("d-none")}, 3000);
+}
+// function to check the category and return the dropdown and item elements
+function check_category(sub_type) {
+  if (sub_type === 'category') {
+    return {
+      'dropdowns': $('select[id=id_meal-related_category]'),
+      'item': $("input[id=id_cat-name]")
+    }
   }
-});
+  else if (sub_type === 'ingredient') {
+    return {
+      'dropdowns': $('select[id^=id_ings-][id$=-related_ingredient]'),
+      'item': $("input[id=id_ing-name]")
+    }
+  }
+}
+// function to update dropdowns for changes to ingredient or category list
+function update_dropdowns(d, url) {
+  $.ajax({
+    url: url,
+    success: function (data) {
+      for (var i = 0; i < d.length; i++) {
+        t = $(d[i]).children("option").filter(":selected").text()
+        v = $(d[i]).children("option").filter(":selected").val()
+        $(d[i]).html(data['items']);
+        $(d[i]).children("option").filter(":selected").text(t).val(v);
+      }
+      $('.bootstrap-select').find('.selectpicker').selectpicker('refresh');
+    }
+  });
+}
