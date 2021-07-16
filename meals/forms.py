@@ -38,7 +38,7 @@ class NewMealForm(ModelForm):
                         "<a id='catModelButton' title='Add Category' class="
                         "'btn btn-sm btn-light btn-block ml-2 mb-3' "
                         "href='' data-toggle='modal' data-target="
-                        "'#newCategoryModal'><i class='fas fa-plus mr-3'></i>"
+                        "'#new_category_modal'><i class='fas fa-plus mr-3'></i>"
                         "Add Missing Category</a>"),
                     css_class='col-sm-3'),
                 css_class='row align-items-end'

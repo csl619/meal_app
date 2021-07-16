@@ -51,7 +51,7 @@
             </div>
             {% endfor %}
             <div class="row justify-content-left">
-              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-target="#newIngredientModal">
+              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-target="#new_ingredient_modal">
                 <i class="fas fa-plus mr-3"></i>
                 Add Missing Ingredient
               </a>
@@ -69,7 +69,7 @@
     </div>
   </form>
 
-  <div class="modal fade" id="newIngredientModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+  <div class="modal fade" id="new_ingredient_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -85,14 +85,14 @@
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}" data-update_url="{% url 'ajax_update_ingredients' %}">
+          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}" data-update-url="{% url 'ajax_update_ingredients' %}" data-sub-type="ingredient">
             Add Ingredient
           </a>
         </div>
       </div>
     </div>
   </div>
-  <div class="modal fade" id="newCategoryModal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+  <div class="modal fade" id="new_category_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -108,7 +108,7 @@
         </div>
         <div class="modal-footer d-flex justify-content-between">
           <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-          <a id='add_cat_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_category' %}" data-update_url="{% url 'ajax_update_categories' %}">
+          <a id='add_cat_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_category' %}" data-update-url="{% url 'ajax_update_categories' %}" data-sub-type="category">
             Add Category
           </a>
         </div>
