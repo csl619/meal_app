@@ -9,9 +9,9 @@ from meals.models import MealCategory
 # Add ingredient via new meal page
 @login_required
 def add_ingredient(request):
-    ingredient = request.GET.get('ing')
+    ingredient = request.GET.get('item')
     ingredient_present = Ingredient.objects.filter(name=ingredient).exists()
-    data = {'ingredient_exists': ingredient_present}
+    data = {'exists': ingredient_present}
     if not ingredient_present:
         ing_form = Ingredient(
             name=ingredient,
@@ -34,10 +34,10 @@ def update_ingredients(request):
     ingredients = Ingredient.objects.filter(
         related_user=request.user).order_by('name')
     data = {
-        'ingredients': '<option value="">---------</option>',
+        'items': '<option value="">---------</option>',
         }
     for ingredient in ingredients:
-        data['ingredients'] += (
+        data['items'] += (
             f'<option value="{ingredient.pk}">{ingredient.name}</option>')
     return JsonResponse(data)
 
@@ -45,10 +45,10 @@ def update_ingredients(request):
 # Add category via new meal page
 @login_required
 def add_category(request):
-    category = request.GET.get('cat')
+    category = request.GET.get('item')
     category_present = MealCategory.objects.filter(
         name=category, related_user=request.user).exists()
-    data = {'category_exists': category_present}
+    data = {'exists': category_present}
     if not category_present:
         cat_form = MealCategory(
             name=category,
@@ -71,9 +71,9 @@ def update_categories(request):
     categories = MealCategory.objects.filter(
         related_user=request.user).order_by('name')
     data = {
-        'categories': '<option value="">---------</option>',
+        'items': '<option value="">---------</option>',
         }
     for category in categories:
-        data['categories'] += (
+        data['items'] += (
             f'<option value="{category.pk}">{category.name}</option>')
     return JsonResponse(data)
