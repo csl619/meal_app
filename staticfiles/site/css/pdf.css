@@ -1,0 +1,65 @@
+@page {
+      size: A4;
+      margin: 0px ;
+  }
+@media print {
+  #page_copy {
+    page-break-before: always;
+  }
+}
+body {
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+}
+p {
+  font-size: 10px;
+}
+.container {
+  margin: 10% 5%;
+  width: 90%;
+}
+.header_area {
+  display: flex;
+}
+#site_logo {
+  margin-left: 2%;
+  width: 50px;
+  height: 50px;
+}
+.recipe_area, .name_block, .ing_block {
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  min-height: 200px;
+  font-size: 12px;
+}
+.ing_block {
+  width: 60%;
+}
+.name_block {
+  flex-grow: 1;
+}
+.underline {
+  border-bottom: 1px solid #e1e1e1;
+  padding-bottom: 3px;
+}
+/* FOOTER */
+.footer {
+  position: absolute;
+  text-align: center;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 50px;
+  background-color: #ff764e;
+  color: white;
+}
+#footer-area {
+    height: 50px;
+    background-color: #ff764e;
+    margin: 0px;
+    color: white;
+
+}

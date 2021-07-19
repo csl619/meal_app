@@ -1,0 +1,35 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ meal.name }} - Recipe Card</title>
+<body>
+  <div class="container">
+		<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+
+		<div class="header_area">
+			<div class="name_block">
+				<h3 class="underline">{{ meal.name }}</h3>
+				<h5>{{ meal.related_category }}</h5>
+				<br>
+				<br>
+				<h4>Prep Time: {{ meal.prep_time }} mins</h4>
+				<h4>Cook Time: {{ meal.cook_time }} mins</h4>
+			</div>
+			<div class="ing_block">
+				<h3 class="underline">Ingredients</h3>
+				{% for i in ingredients %}
+				<p>{{ i.related_ingredient }} - {{ i.amount|floatformat:'-2' }} {{ i.get_unit_display }}</p>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="recipe_area">
+			<h3 class="underline">Recipe</h3>
+			{{ meal.recipe|safe }}
+		</div>
+  </div>
+	<footer id="footer-area" class="footer">
+		<p class=""> 2021 Chris Lowe.</p>
+	</footer>
+</body>
