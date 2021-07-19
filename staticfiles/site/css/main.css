@@ -185,6 +185,10 @@ table.dataTable.table-sm > thead > tr > th {
 .day_summary {
   min-height: 200px;
 }
+.remove-form-row, .add-form-row {
+  height: 32px;
+  width: 32px;
+}
 /* FOOTER */
 .footer {
   position: absolute;

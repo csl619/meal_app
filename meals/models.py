@@ -21,6 +21,7 @@ class MealCategory(models.Model):
 
     class Meta:
         verbose_name_plural = "Meal Categories"
+        ordering = ['name']
 
 
 class Meal(models.Model):

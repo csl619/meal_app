@@ -1,13 +1,14 @@
 // add ingredient or category via new meal page
-$(document).on('click','#add_cat_but, #add_ing_but', function(event) {
+$(document).on('click','#add_item_but', function(event) {
   event.preventDefault()
-  var url = $(this).data("url");
-  var update_url = $(this).data("update-url");
-  var sub_type = $(this).data("sub-type");
-  var failed = '#' + sub_type + '_failed';
+  var url = $('#add_item_but').attr("data-url");
+  var update_url = $('#add_item_but').attr("data-update-url");
+  var sub_type = $('#add_item_but').attr("data-sub-type");
+  var failed = '#add_failed';
   var added = '#' + sub_type + '_added';
-  var modal = '#new_' + sub_type + '_modal';
-  var {dropdowns, item} = check_category(sub_type)
+  var modal = '#missing_item_modal';
+  var item = $("input[id=id-name]")
+  var {dropdowns} = check_category(sub_type)
   if(!!item.val()){
     $.ajax({
       url: url,
@@ -21,6 +22,12 @@ $(document).on('click','#add_cat_but, #add_ing_but', function(event) {
         else {
           message_wait_and_hide(added, data.message)
           $(modal).modal('hide');
+          $('#po_title').text($('#po_title').text().replace(sub_type ,'**placeholder**'));
+          $('#action_text').text($('#action_text').text().replace(sub_type ,'**placeholder**'));
+          $('#add_item_but').prop('text', $('#add_item_but').text().replace(sub_type ,'**placeholder**'));
+          $('#add_item_but').attr("data-url", '');
+          $('#add_item_but').attr("data-update-url", '');
+          $('#add_item_but').attr("data-sub-type", '');
           $(item).val("");
           update_dropdowns(dropdowns, update_url)
         }
@@ -38,13 +45,11 @@ function check_category(sub_type) {
   if (sub_type === 'category') {
     return {
       'dropdowns': $('select[id=id_meal-related_category]'),
-      'item': $("input[id=id_cat-name]")
     }
   }
   else if (sub_type === 'ingredient') {
     return {
       'dropdowns': $('select[id^=id_ings-][id$=-related_ingredient]'),
-      'item': $("input[id=id_ing-name]")
     }
   }
 }

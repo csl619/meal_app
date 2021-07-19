@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -62,4 +62,36 @@ def new_meal(request):
         'categoryForm': NewCategoryForm(prefix='cat'),
         'formset': formset,
         'title': title,
+    })
+
+
+@login_required
+def edit_meal(request, pk):
+    obj = get_object_or_404(Meal, id=pk)
+    template_name = 'meals/new_meal.html'
+    title = 'Edit Meal'
+    if request.method == 'GET':
+        mealForm = NewMealForm(prefix='meal', instance=obj)
+        formset = ingredient_formset(
+            queryset=MealIngredient.objects.filter(meal_id=obj.id),
+            prefix='ings')
+    elif request.method == 'POST':
+        formset = ingredient_formset(request.POST, prefix='ings')
+        mealForm = NewMealForm(
+            request.POST or None, prefix='meal', instance=obj)
+        if mealForm.is_valid() and formset.is_valid():
+            meal = meal_form_save(mealForm, request.user)
+            ingredient_save(formset, meal.id, request.user)
+            messages.success(request, "Meal successfully added.")
+            return redirect('meals')
+        else:
+            print(mealForm.errors)
+            print(formset.errors)
+    return render(request, template_name, {
+        'mealForm': mealForm,
+        'ingredientForm': NewIngredientForm(prefix='ing'),
+        'categoryForm': NewCategoryForm(prefix='cat'),
+        'formset': formset,
+        'title': title,
+        'edit': pk,
     })

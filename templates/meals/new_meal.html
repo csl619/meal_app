@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
 
-  <form id='new_meal_form' action="{% url 'new_meal' %}" data-token="{{ csrf_token }}" method="POST">
+  <form id='new_meal_form' action="{% if edit %}{% url 'edit_meal' edit %}{% else %}{% url 'new_meal' %}{% endif %}" data-token="{{ csrf_token }}" method="POST">
     {% csrf_token %}
     <div class="row">
       <div class="col-sm-12">
@@ -51,7 +51,7 @@
             </div>
             {% endfor %}
             <div class="row justify-content-left">
-              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-target="#new_ingredient_modal">
+              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-url="{% url 'ajax_new_ingredient' %}" data-update-url="{% url 'ajax_update_ingredients' %}" data-sub-type="ingredient" data-target="#missing_item_modal">
                 <i class="fas fa-plus mr-3"></i>
                 Add Missing Ingredient
               </a>
@@ -69,49 +69,34 @@
     </div>
   </form>
 
-  <div class="modal fade" id="new_ingredient_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+  <div class="modal fade" id="missing_item_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="poTitle">Add Missing Ingredient</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p id='actionText'>Please enter the ingredient name:</p>
-          {% crispy ingredientForm %}
-          <p class='mb-0 text-danger'><small id='ingredient_failed' class='d-none'></small></p>
-        </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-          <a id='add_ing_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_ingredient' %}" data-update-url="{% url 'ajax_update_ingredients' %}" data-sub-type="ingredient">
-            Add Ingredient
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="new_category_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="poTitle">Add Missing Category</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p id='actionText'>Please enter the category name:</p>
-          {% crispy categoryForm %}
-          <p class='mb-0 text-danger'><small id='category_failed' class='d-none'></small></p>
-        </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-          <a id='add_cat_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_category' %}" data-update-url="{% url 'ajax_update_categories' %}" data-sub-type="category">
-            Add Category
-          </a>
-        </div>
+        <form id='miss_item_form' data-token="{{ csrf_token }}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="po_title">Add missing **placeholder**</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id='action_text'>Please enter the **placeholder** name:</p>
+            <div id="div_id-name" class="form-group row">
+              <label for="id-name" class="col-form-label col-12 requiredField">Name<span class="asteriskField">*</span></label>
+              <div class="col-12">
+                <input type="text" name="name" maxlength="100" class="textinput textInput form-control" required id="id-name">
+              </div>
+            </div>
+            <p class='mb-0 text-danger'><small id='add_failed' class='d-none'></small></p>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <a id='add_item_but' class='btn btn-info' href='' data-url="" data-update-url="" data-sub-type="">
+              Add **placeholder**
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   </div>

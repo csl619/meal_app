@@ -72,7 +72,7 @@ $(document).ready( function () {
             {"class" : "align-middle text-center",
               "data": "id", "name": "id",
               "render": function ( data, type, row, meta ) {
-                return "<a class='btn btn-sm btn-secondary' href='/meals/"+data+"/'><i class='far fa-folder-open mr-1'></i>View</a>";
+                return "<a class='btn btn-sm btn-secondary' href='/meals/"+data+"/edit/'><i class='far fa-edit mr-1'></i>Edit</a> <a class='btn btn-sm btn-secondary' href='/meals/"+data+"/pdf/' target='_blank'><i class='far fa-file-pdf mr-1'></i>View</a>";
               }
             },
         ],
@@ -85,7 +85,8 @@ $(document).ready( function () {
         "info": false,
         "columnDefs": [
           { "width": "30%", "targets": [0] },
-          { "width": "10%", "targets": [1,2,3,4,5,6] },
+          { "width": "10%", "targets": [1,2,3,4,5] },
+          { "width": "20%", "targets": [6] },
         ],
         "initComplete": function() {
             $(this).show();
