@@ -55,7 +55,7 @@ class Meal(models.Model):
 
 class MealIngredient(models.Model):
     unit_code = [
-        ('1', 'unit'),
+        ('1', 'item'),
         ('2', 'millilitre'),
         ('3', 'pint'),
         ('4', 'teaspoon'),
@@ -64,6 +64,7 @@ class MealIngredient(models.Model):
         ('7', 'ounce'),
         ('8', 'piece'),
         ('9', 'pinch'),
+        ('10', 'cup'),
     ]
     meal_id = models.ForeignKey(
         Meal, verbose_name='Related Meal',
@@ -74,10 +75,11 @@ class MealIngredient(models.Model):
     amount = models.DecimalField(
         blank=False, max_digits=6, decimal_places=2, null=False,
         default=Decimal('0.00'))
-    unit = models.CharField(max_length=1, choices=unit_code, default='1')
+    unit = models.CharField(max_length=2, choices=unit_code, default='1')
 
     def __str__(self):
         return str(f'{self.related_ingredient}')
 
     class Meta:
         verbose_name_plural = "Meal Ingredients"
+        ordering = ['related_ingredient']
