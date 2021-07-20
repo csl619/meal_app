@@ -17,11 +17,12 @@ from meals.models import (Meal, MealIngredient)
 def meal_pdf(request, id, res_type):
     css_file = f'{getenv("DIR_PATH")}/staticfiles/site/css/pa_pdf.css'
     meal = Meal.objects.filter(pk=id).first()
-    ingredients = MealIngredient.objects.filter(meal_id=meal)
+    ingredients = MealIngredient.objects.filter(
+        meal_id=meal).order_by('related_ingredient__name')
     response = HttpResponse(content_type="application/pdf")
     response['Content-Disposition'] = (
         "inline; filename={name}-{type}.pdf".format(
-            name=slugify(meal.name),
+            name=slugify(meal.name).replace('-', '_'),
             type=slugify('meal_card')
         ))
     template = 'meals/meal_pdf.html'
