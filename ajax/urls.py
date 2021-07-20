@@ -16,4 +16,10 @@ urlpatterns = [
     path(
         'update_categories/', views.update_categories,
         name='ajax_update_categories'),
+    path(
+        'update_user_email/', views.update_user_email,
+        name='ajax_update_user_email'),
+    path(
+        'update_user_order_day/', views.update_user_order_day,
+        name='ajax_update_order_day'),
 ]

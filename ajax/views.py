@@ -1,8 +1,12 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import redirect
+from django.contrib import messages
+from django.contrib.auth.models import User
 
 from ingredients.models import Ingredient
 from meals.models import MealCategory
+from users.models import Profile
 
 
 # --------------------- INGREDIENT AJAX CALLS ------------------------
@@ -42,6 +46,7 @@ def update_ingredients(request):
     return JsonResponse(data)
 
 
+# --------------------- CATEGORY AJAX CALLS ------------------------
 # Add category via new meal page
 @login_required
 def add_category(request):
@@ -65,7 +70,7 @@ def add_category(request):
     return JsonResponse(data)
 
 
-# reload ingredient list once new ingredient is added
+# reload category list once new ingredient is added
 @login_required
 def update_categories(request):
     categories = MealCategory.objects.filter(
@@ -77,3 +82,29 @@ def update_categories(request):
         data['items'] += (
             f'<option value="{category.pk}">{category.name}</option>')
     return JsonResponse(data)
+
+
+# --------------------- USER PROFILE AJAX CALLS ------------------------
+# update user email address
+@login_required
+def update_user_email(request):
+    email = request.GET.get('email')
+    user = User.objects.filter(id=request.user.id).first()
+    user.email = email
+    user.save()
+    messages.success(request, "User email updated successfully.")
+    data = "User email updated successfully."
+    return HttpResponse(data)
+
+
+# update user order day
+@login_required
+def update_user_order_day(request):
+    day = request.GET.get('day')
+    user = User.objects.filter(id=request.user.id).first()
+    profile = Profile.objects.filter(user=user).first()
+    profile.food_order_day = day
+    profile.save()
+    messages.success(request, "User food ordering day updated successfully.")
+    data = "User food ordering day updated successfully."
+    return HttpResponse(data)

@@ -68,3 +68,37 @@ function update_dropdowns(d, url) {
     }
   });
 }
+// function to update user email address
+$(document).on('click','#update_email_but', function(event) {
+  event.preventDefault()
+  var url = $(this).attr("data-url");
+  var email = $("input[id=id-email]").val()
+  if(!!email){
+    $.ajax({
+      url: url,
+      data: {
+        'email': email,
+      },
+      success: function (data) {
+        location.reload()
+      }
+    });
+  }
+});
+// function to update user email address
+$(document).on('click','#update_order_day_but', function(event) {
+  event.preventDefault()
+  var url = $(this).attr("data-url");
+  var day = $("select[id=order_day]").val()
+  if(!!day){
+    $.ajax({
+      url: url,
+      data: {
+        'day': day,
+      },
+      success: function (data) {
+        location.reload()
+      }
+    });
+  }
+});
