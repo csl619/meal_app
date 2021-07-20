@@ -4,42 +4,18 @@
 {% load crispy_forms_tags %}
 {% block content %}
 <div class="row justify-content-center">
+  {% for day in dates %}
   <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Monday</h4>
+    {% if day.today %}
+    <div class="jumbotron today_summary">
+      <h4 class='border-bottom'>{{ day.week_day }} - {{ day.date }} {% if day.order %}<span class='small ml-5'>**Food Order Day**</span>{% endif %}</h4>
     </div>
-  </div>
-  <div class="col-12 px-1">
+    {% else %}
     <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Tuesday</h4>
+      <h4 class='border-bottom'>{{ day.week_day }} - {{ day.date }} {% if day.order %}<span class='small ml-5'>**Food Order Day**</span>{% endif %}</h4>
     </div>
+    {% endif %}
   </div>
-  <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Wednesday</h4>
-    </div>
-  </div>
-  <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Thursday</h4>
-    </div>
-  </div>
-  <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Friday</h4>
-    </div>
-  </div>
-</div>
-<div class="row justify-content-center">
-  <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Saturday</h4>
-    </div>
-  </div>
-  <div class="col-12 px-1">
-    <div class="jumbotron day_summary">
-      <h4 class='border-bottom'>Sunday</h4>
-    </div>
-  </div>
+  {% endfor %}
 </div>
 {% endblock content %}
