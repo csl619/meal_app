@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-12">
+    <div class="jumbotron user_profile">
+      <h4 class='border-bottom'>{{ user.first_name }} {{ user.last_name }} - Profile</h4>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6 col-lg-3">
+    <div class="row">
+      <div class="col-12">
+        <div class="jumbotron user_area">
+          <h4 class='border-bottom'>User Details:</h4>
+          <p><i class="far fa-user-circle orange mr-2"></i> {{user.username}}</p>
+          <p><i class="far fa-envelope orange mr-2"></i> {{user.email}}</p>
+          <a id='updateEmailModelButton' title="Update Email" class='btn btn-block btn-info' href="" data-toggle="modal" data-target="#edit_email_modal">
+            Update Contact Email
+          </a>
+          <p><i class="fas fa-shopping-basket orange mr-2 mt-4"></i>Food Ordering Day: {{ profile.get_food_order_day_display }}</p>
+          <a id='updateOrderModelButton' title="Update Food Order Day" class='btn btn-block btn-info' href="" data-toggle="modal" data-target="#edit_order_day_modal">
+            Update Food Order Day
+          </a>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="jumbotron profile_area">
+          <h4 class='border-bottom'>Current daily meal categories:</h4>
+          <table id="user_cat_table" style="width:100%;" class="table table-bordered table-sm mt-4">
+            <thead class="thead-light">
+              <tr>
+                <th class="align-middle text-center" scope="col">Day</th>
+                <th class="align-middle text-center" scope="col">Category</th>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Monday</td>
+                <td class="align-middle pl-4">{{ profile.monday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Tuesday</td>
+                <td class="align-middle pl-4">{{ profile.tuesday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Wednesday</td>
+                <td class="align-middle pl-4">{{ profile.wednesday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Thursday</td>
+                <td class="align-middle pl-4">{{ profile.thursday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Friday</td>
+                <td class="align-middle pl-4">{{ profile.friday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Saturday</td>
+                <td class="align-middle pl-4">{{ profile.saturday }}</td>
+              </tr>
+              <tr>
+                <td class="align-middle text-center">Sunday</td>
+                <td class="align-middle pl-4">{{ profile.sunday }}</td>
+              </tr>
+            </thead>
+          </table>
+          <a href="{% url 'edit_profile' %}" class='btn btn-block btn-info'>Edit Daily Categories</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-lg-9">
+    <div class="jumbotron profile_area">
+      <h4 class='border-bottom'>Previous Meals:</h4>
+      <table id="user_meal_table" style="width:100%;" class="table table-bordered table-sm" data-server-side="true" data-ajax="/api/meals/?profile=True&format=datatables">
+        <thead class="thead-light">
+          <tr>
+            <th class="align-middle text-center" scope="col">Name</th>
+            <th class="align-middle text-center" scope="col">Prep Time</th>
+            <th class="align-middle text-center" scope="col">Cook Time</th>
+            <th class="align-middle text-center" scope="col">Category</th>
+            <th class="align-middle text-center" scope="col">Last Made</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+  <div class="modal fade" id="edit_email_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form id='edit_email_form' data-token="{{ csrf_token }}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="po_title">Update User Email</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id='action_text'>Please enter your new email address:</p>
+            <div id="div_id-email" class="form-group row">
+              <label for="id-name" class="col-form-label col-12 requiredField">Email<span class="asteriskField">*</span></label>
+              <div class="col-12">
+                <input type="email" name="name" maxlength="100" class="textinput textInput form-control" required id="id-email">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <a id='update_email_but' class='btn btn-info' href='' data-url="{% url 'ajax_update_user_email' %}">
+              Update Email
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="edit_order_day_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form id='edit_email_form' data-token="{{ csrf_token }}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="po_title">Update food order day</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id='action_text'>Please enter the day you will be ordering food on:</p>
+            <div id="div_id-order_day" class="form-group">
+              <select class="form-control selectpicker" data-live-search="true" data-size="5" name="order_day" id="order_day">
+                <option value="" selected disabled hidden>--------</option>
+                <option value="0">Monday</option>
+                <option value="1">Tuesday</option>
+                <option value="2">Wednesday</option>
+                <option value="3">Thursday</option>
+                <option value="4">Friday</option>
+                <option value="5">Saturday</option>
+                <option value="6">Sunday</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <a id='update_order_day_but' class='btn btn-info' href='' data-url="{% url 'ajax_update_order_day' %}">
+              Update Order Day
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

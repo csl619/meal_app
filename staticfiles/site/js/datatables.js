@@ -95,6 +95,58 @@ $(document).ready( function () {
         },
       }
     );
+    // USER MEAL TABLE STRUCTURE
+    $('#user_meal_table').DataTable(
+      {
+        "dom": "<'row'<'col-sm-6'B><'col-sm-6'f>>" +
+               "<'row'<'col-sm-12'tr>>" +
+               "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "buttons": {
+          "buttons":[
+            { "extend": 'csv', 'titleAttr': 'Export to CSV', "text":'<i class="fas fa-file-csv mr-1"></i> .csv',"className": 'btn btn-outline-info' },
+            { "extend": 'excel', 'titleAttr': 'Export to XLSX', "text":'<i class="far fa-file-excel mr-1"></i>.xlsx',"className": 'btn btn-outline-info' },
+
+          ],
+          'dom': {
+            'button': {
+              'className': ''
+            }
+          }
+        },
+        "columns": [
+            {"class" : "align-middle pl-2", "data": "name", "name": "name"},
+            {"class" : "align-middle text-center", "data": "prep_time", "name": "prep_time",
+              "render": function ( data, type, row, meta ) {
+                return data+"mins";
+              }
+            },
+            {"class" : "align-middle text-center", "data": "cook_time", "name": "cook_time",
+              "render": function ( data, type, row, meta ) {
+                return data+"mins";
+              }
+            },
+            {"class" : "align-middle text-center", "data": "related_category.name", "name": "related_category.name"},
+            {"class" : "align-middle text-center", "data": "last_planned", "name": "last_planned",
+              'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
+        ],
+        "deferRender": true,
+        "scrollX": true,
+        "lengthChange": false,
+        "paging": true,
+        "pageLength": 14,
+        "ordering": false,
+        "info": false,
+        "columnDefs": [
+          { "width": "60%", "targets": [0] },
+          { "width": "10%", "targets": [1,2,3,4] },
+        ],
+        "initComplete": function() {
+            $(this).show();
+            $($.fn.dataTable.tables(true)).DataTable()
+            .columns.adjust().draw();
+        },
+      }
+    );
     $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
        $($.fn.dataTable.tables(true)).DataTable()
        .columns.adjust().draw();

@@ -33,7 +33,7 @@ main {
 .bg-steel {
   background-color: #e9ecef
 }
-.text-info {
+.text-info, .orange {
   color: #ff764e !important;
 }
 .nav
@@ -54,7 +54,7 @@ main {
   height: 100px;
   width: auto;
 }
-.btn-info {
+.btn-info, .btn-info:focus {
   color: #fff !important;
   background-color: #ff764e;
   border-color: #ff764e;
@@ -85,6 +85,7 @@ main {
 .btn-outline-info {
   color: #ff764e;
   border-color: #ff764e;
+  background-color: white;
 }
 .btn-outline-info:hover {
   color: #fff;
@@ -164,6 +165,18 @@ td, th {
   /* font-size: .75rem; */
   height: 30px;
 }
+.table .thead-light th {
+  background-color: #ff764e !important;
+  color: white !important;
+}
+#user_cat_table td, th {
+  /* font-size: .75rem; */
+  height: 20px;
+  width: 50%;
+}
+.table {
+  background-color: white !important;
+}
 .small_icon {
   font-size: 20px;
 }
@@ -184,6 +197,19 @@ table.dataTable.table-sm > thead > tr > th {
 }
 .day_summary {
   min-height: 200px;
+}
+.today_summary {
+  min-height: 200px;
+  background-color: #ff764e;
+  color: white
+}
+.profile_area {
+  height: 100%;
+}
+.user_profile {
+  min-height: 100px;
+  background-color: #ff764e;
+  color: white
 }
 .remove-form-row, .add-form-row {
   height: 32px;
