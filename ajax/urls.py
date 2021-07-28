@@ -22,4 +22,7 @@ urlpatterns = [
     path(
         'update_user_order_day/', views.update_user_order_day,
         name='ajax_update_order_day'),
+    path(
+        'update_user_meal_repeat/', views.update_user_meal_repeat,
+        name='ajax_update_meal_repeat'),
 ]

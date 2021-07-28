@@ -108,3 +108,16 @@ def update_user_order_day(request):
     messages.success(request, "User food ordering day updated successfully.")
     data = "User food ordering day updated successfully."
     return HttpResponse(data)
+
+
+# update user order day
+@login_required
+def update_user_meal_repeat(request):
+    days = request.GET.get('days')
+    user = User.objects.filter(id=request.user.id).first()
+    profile = Profile.objects.filter(user=user).first()
+    profile.meal_repeat = days
+    profile.save()
+    messages.success(request, "User meal repeat days updated successfully.")
+    data = "User meal repeat days updated successfully."
+    return HttpResponse(data)
