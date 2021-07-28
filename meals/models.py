@@ -37,6 +37,8 @@ class Meal(models.Model):
     last_planned = models.DateField(
         verbose_name='Last Planned', auto_now_add=False, auto_now=False,
         null=True)
+    times_planned = models.PositiveIntegerField(
+        blank=False, null=False, default=0)
     prep_time = models.PositiveIntegerField(
         blank=False, null=False, default=0,
         validators=[MinValueValidator(0), MaxValueValidator(360)])
