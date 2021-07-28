@@ -9,10 +9,16 @@
     {% if day.today %}
     <div class="jumbotron today_summary">
       <h4 class='border-bottom'>{{ day.week_day }} - {{ day.date }} {% if day.order %}<span class='small ml-5'>**Food Order Day**</span>{% endif %}</h4>
+      <p>Meal: {{ day.meal.related_meal.name }}</p>
+      <p>Meal Category: {{ day.meal.related_meal.related_category }}</p>
+      <a class='btn btn-sm btn-secondary' href="{% if day.meal %}{% url 'meal_pdf' day.meal.related_meal.id %}{% endif %}" target="_blank">View Meal Card</a></a>
     </div>
     {% else %}
     <div class="jumbotron day_summary">
       <h4 class='border-bottom'>{{ day.week_day }} - {{ day.date }} {% if day.order %}<span class='small ml-5'>**Food Order Day**</span>{% endif %}</h4>
+      <p>Meal: {{ day.meal.related_meal.name }}</p>
+      <p>Meal Category: {{ day.meal.related_meal.related_category }}</p>
+      <a class='btn btn-sm btn-secondary' href="{% if day.meal %}{% url 'meal_pdf' day.meal.related_meal.id %}{% endif %}" target="_blank">View Meal Card</a>
     </div>
     {% endif %}
   </div>

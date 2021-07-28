@@ -98,6 +98,24 @@ $(document).on('click','#update_order_day_but', function(event) {
       },
       success: function (data) {
         location.reload()
+        $("select[id=order_day]").val('')
+      }
+    });
+  }
+});
+// function to update user email address
+$(document).on('submit','#edit_repeat_form', function(event) {
+  event.preventDefault()
+  var url = $(this).attr("action");
+  var days = $("input[id=id_meal_repeat]").val()
+  if(!!days){
+    $.ajax({
+      url: url,
+      data: {
+        'days': days,
+      },
+      success: function (data) {
+        location.reload()
       }
     });
   }

@@ -26,9 +26,9 @@
 						{% for i in ingredients %}
 						<li>
 							{% if i.unit == '1' %}
-								{{ i.amount|floatformat:'-2' }} {{ i.related_ingredient }}
+								{{ i.amount|floatformat:'-2' }} {{ i.related_ingredient }}{% if i.amount > 1 %}s{% endif %}
 							{% else %}
-								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.get_unit_display }})
+								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.get_unit_display }}{% if i.amount >= 1 %}s{% endif %})
 							{% endif %}
 						</li>
 						{% endfor %}

@@ -1,4 +1,5 @@
 from users.models import Profile
+from planner.models import WeekDays
 
 from datetime import date, timedelta
 
@@ -17,10 +18,14 @@ def get_date_list(u):
             order_check = True
         if today == day:
             today_check = True
+        meal = WeekDays.objects.filter(
+            meal_date=day, related_week__related_user=u).first()
+        print(meal)
         week_list.append({
             'date': day,
             'week_day': week_day,
             'today': today_check,
             'order': order_check,
+            'meal': meal
         })
     return week_list
