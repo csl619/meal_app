@@ -11,19 +11,23 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-md-6 col-lg-3">
+  <div class="col-md-6 col-lg-4">
     <div class="row">
       <div class="col-12">
         <div class="jumbotron user_area">
           <h4 class='border-bottom'>User Details:</h4>
-          <p><i class="far fa-user-circle orange mr-2"></i> {{user.username}}</p>
-          <p><i class="far fa-envelope orange mr-2"></i> {{user.email}}</p>
+          <p><i class="far fa-user-circle orange mr-2"></i><span class='small'>Username:</span> <span class="orange">{{user.username}}</span></p>
+          <p><i class="far fa-envelope orange mr-2"></i><span class='small'>E-mail:</span> <span class="orange">{{user.email}}</span></p>
           <a id='updateEmailModelButton' title="Update Email" class='btn btn-block btn-info' href="" data-toggle="modal" data-target="#edit_email_modal">
             Update Contact Email
           </a>
-          <p><i class="fas fa-shopping-basket orange mr-2 mt-4"></i>Food Ordering Day: {{ profile.get_food_order_day_display }}</p>
+          <p><i class="fas fa-shopping-basket orange mr-2 mt-4"></i><span class='small'>Day you order food:</span> <span class="orange">{{ profile.get_food_order_day_display }}</span></p>
           <a id='updateOrderModelButton' title="Update Food Order Day" class='btn btn-block btn-info' href="" data-toggle="modal" data-target="#edit_order_day_modal">
             Update Food Order Day
+          </a>
+          <p><i class="fas fa-redo-alt orange mr-2 mt-4"></i><span class='small'>Meal Repeat After:</span> <span class="orange">{{ profile.meal_repeat }} days</span></p>
+          <a id='updateRepeatModelButton' title="Update Meal Repeat" class='btn btn-block btn-info' href="" data-toggle="modal" data-target="#edit_repeat_modal">
+            Update Meal Repeat
           </a>
         </div>
       </div>
@@ -38,40 +42,40 @@
               </tr>
               <tr>
                 <td class="align-middle text-center">Monday</td>
-                <td class="align-middle pl-4">{{ profile.monday }}</td>
+                <td class="align-middle pl-2">{{ profile.monday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Tuesday</td>
-                <td class="align-middle pl-4">{{ profile.tuesday }}</td>
+                <td class="align-middle pl-2">{{ profile.tuesday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Wednesday</td>
-                <td class="align-middle pl-4">{{ profile.wednesday }}</td>
+                <td class="align-middle pl-2">{{ profile.wednesday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Thursday</td>
-                <td class="align-middle pl-4">{{ profile.thursday }}</td>
+                <td class="align-middle pl-2">{{ profile.thursday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Friday</td>
-                <td class="align-middle pl-4">{{ profile.friday }}</td>
+                <td class="align-middle pl-2">{{ profile.friday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Saturday</td>
-                <td class="align-middle pl-4">{{ profile.saturday }}</td>
+                <td class="align-middle pl-2">{{ profile.saturday }}</td>
               </tr>
               <tr>
                 <td class="align-middle text-center">Sunday</td>
-                <td class="align-middle pl-4">{{ profile.sunday }}</td>
+                <td class="align-middle pl-2">{{ profile.sunday }}</td>
               </tr>
             </thead>
           </table>
-          <a href="{% url 'edit_profile' %}" class='btn btn-block btn-info'>Edit Daily Categories</a>
+          <a href="{% url 'edit_meal_cats' %}" class='btn btn-block btn-info'>Edit Daily Categories</a>
         </div>
       </div>
     </div>
   </div>
-  <div class="col-md-6 col-lg-9">
+  <div class="col-md-6 col-lg-8">
     <div class="jumbotron profile_area">
       <h4 class='border-bottom'>Previous Meals:</h4>
       <table id="user_meal_table" style="width:100%;" class="table table-bordered table-sm" data-server-side="true" data-ajax="/api/meals/?profile=True&format=datatables">
@@ -149,6 +153,30 @@
             <a id='update_order_day_but' class='btn btn-info' href='' data-url="{% url 'ajax_update_order_day' %}">
               Update Order Day
             </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="edit_repeat_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form id='edit_repeat_form' action="{% url 'ajax_update_meal_repeat' %}" data-token="{{ csrf_token }}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="po_title">Update Meal Repeat</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            {% crispy repForm %}
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <button id='update_repeat_but' class='btn btn-info' href='' type='submit' data-url="{% url 'ajax_update_meal_repeat' %}">
+              Update Meal Repeat
+            </button>
           </div>
         </form>
       </div>

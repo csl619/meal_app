@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 from meals.models import MealCategory
 
@@ -38,6 +39,13 @@ class Profile(models.Model):
         on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
     food_order_day = models.CharField(
         max_length=1, choices=day_code, default='0')
+    meal_repeat = models.PositiveIntegerField(
+        blank=False, null=False, default=7,
+        validators=[MinValueValidator(7), MaxValueValidator(28)],
+        help_text=(
+            'Changing this value affects how regularly the planner will select'
+            ' the same meal. Please choose a value between 7 and 28 days. (The'
+            ' default is 7 days (1 week).'))
 
     def __str__(self):
         return f'{self.user.username} - Profile'
