@@ -27,15 +27,13 @@ urlpatterns = [
         'login/',
         auth_views.LoginView.as_view(template_name="users/login.html"),
         name='login'),
-    path(
-        'logout/',
-        auth_views.LogoutView.as_view(template_name="users/logout.html"),
-        name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('ajax/', include('ajax.urls')),
     path('api/', include('api.urls')),
     path('user/', include('users.urls')),
     path('ingredients/', include('ingredients.urls')),
     path('meals/', include('meals.urls')),
+    path('planned_weeks/', include('planner.urls')),
 ]
 
 if settings.DEBUG:
