@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+  <div class="jumbotron pt-4 mt-2 bg-white">
+    <h3 class="border-bottom pb-2 mb-4">{{ title }}</h3>
+    <div class="">
+      <table id="week_table" style="width:100%;" class="table table-bordered table-sm" data-server-side="true" data-ajax="/api/planned_weeks/?format=datatables">
+        <thead class="thead-light">
+          <tr>
+            <th class="align-middle text-center" scope="col">Name</th>
+            <th class="align-middle text-center" scope="col">Week Start</th>
+            <th class="align-middle text-center" scope="col">Week End</th>
+            <th class="align-middle text-center" scope="col">Date Added</th>
+            <th class="align-middle text-center" scope="col">Actions</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </div>
+
+{% endblock content %}
