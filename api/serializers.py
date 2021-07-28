@@ -1,6 +1,8 @@
+from rest_framework import serializers
+
 from ingredients.models import Ingredient
 from meals.models import Meal
-from rest_framework import serializers
+from planner.models import Week
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -17,5 +19,14 @@ class MealSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Meal
+        fields = '__all__'
+        depth = 1
+
+
+class WeekSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Week
         fields = '__all__'
         depth = 1

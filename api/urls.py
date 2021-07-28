@@ -28,6 +28,9 @@ router.register(r'ingredients', api.IngredientVS, basename='ingredients')
 # Meal Routes
 router.register(r'meals', api.MealVS, basename='meals')
 
+# Planner Routes
+router.register(r'planned_weeks', api.WeekVS, basename='planned_weeks')
+
 urlpatterns = [
     path('', include(router.urls)),
 ]
