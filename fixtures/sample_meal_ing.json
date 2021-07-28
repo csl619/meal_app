@@ -1,0 +1,162 @@
+[
+  {
+    "model": "meals.mealingredient",
+    "pk": 10,
+    "fields": {
+      "meal_id": 2,
+      "amount": 10.75,
+      "related_ingredient": 9,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 11,
+    "fields": {
+      "meal_id": 3,
+      "amount": 66.69,
+      "related_ingredient": 1,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 12,
+    "fields": {
+      "meal_id": 4,
+      "amount": 116.86,
+      "related_ingredient": 40,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 13,
+    "fields": {
+      "meal_id": 5,
+      "amount": 435.43,
+      "related_ingredient": 40,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 14,
+    "fields": {
+      "meal_id": 6,
+      "amount": 381.76,
+      "related_ingredient": 1,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 15,
+    "fields": {
+      "meal_id": 7,
+      "amount": 83.25,
+      "related_ingredient": 43,
+      "unit": 2
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 16,
+    "fields": {
+      "meal_id": 8,
+      "amount": 106.27,
+      "related_ingredient": 14,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 17,
+    "fields": {
+      "meal_id": 9,
+      "amount": 279.19,
+      "related_ingredient": 14,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 18,
+    "fields": {
+      "meal_id": 10,
+      "amount": 248.53,
+      "related_ingredient": 9,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 19,
+    "fields": {
+      "meal_id": 11,
+      "amount": 163.16,
+      "related_ingredient": 41,
+      "unit": 6
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 20,
+    "fields": {
+      "meal_id": 12,
+      "amount": 16.67,
+      "related_ingredient": 40,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 21,
+    "fields": {
+      "meal_id": 13,
+      "amount": 71.25,
+      "related_ingredient": 40,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 22,
+    "fields": {
+      "meal_id": 14,
+      "amount": 354.7,
+      "related_ingredient": 41,
+      "unit": 6
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 23,
+    "fields": {
+      "meal_id": 15,
+      "amount": 322.36,
+      "related_ingredient": 9,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 24,
+    "fields": {
+      "meal_id": 16,
+      "amount": 379.23,
+      "related_ingredient": 9,
+      "unit": 1
+    }
+  },
+  {
+    "model": "meals.mealingredient",
+    "pk": 25,
+    "fields": {
+      "meal_id": 17,
+      "amount": 348.81,
+      "related_ingredient": 40,
+      "unit": 1
+    }
+  }
+]
