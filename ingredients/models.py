@@ -14,6 +14,7 @@ class Ingredient(models.Model):
         ('8', 'piece'),
         ('9', 'pinch'),
         ('10', 'cup'),
+        ('11', 'clove'),
     ]
 
     name = models.CharField(

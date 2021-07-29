@@ -13,7 +13,7 @@ class NewIngredientForm(ModelForm):
     class Meta:
         model = Ingredient
         fields = (
-            'name',)
+            'name', 'default_unit')
         widgets = {
         }
 
@@ -26,7 +26,10 @@ class NewIngredientForm(ModelForm):
         self.helper.label_class = 'col-12'
         self.helper.field_class = 'col-12'
         self.helper.layout = Layout(
-            Field('name')
+            Field('name'),
+            Field(
+                'default_unit', css_class="selectpicker",
+                data_live_search="true", data_size="5"),
         )
 
     def clean_name(self):
