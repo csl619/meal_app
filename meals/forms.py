@@ -15,7 +15,8 @@ class NewMealForm(ModelForm):
     class Meta:
         model = Meal
         fields = '__all__'
-        exclude = ['related_user', 'last_planned', 'date_added']
+        exclude = [
+            'related_user', 'last_planned', 'times_planned', 'date_added']
 
     def __init__(self, *args, **kwargs):
         super(NewMealForm, self).__init__(*args, **kwargs)
@@ -27,6 +28,7 @@ class NewMealForm(ModelForm):
         self.helper.field_class = 'col-12'
         self.helper.layout = Layout(
             Field('name'),
+            Field('description', css_class='tinymce-sm'),
             Div(
                 Div(
                     Field(
@@ -55,8 +57,6 @@ class NewMealForm(ModelForm):
                 css_class='row'
             ),
             Field('recipe', css_class='tinymce'),
-            Field('notes', css_class='tinymce-sm'),
-
         )
 
     def clean_name(self):
@@ -80,7 +80,7 @@ class IngredientLine(ModelForm):
     class Meta:
         model = MealIngredient
         fields = (
-            'related_ingredient', 'amount', 'unit')
+            'related_ingredient', 'amount')
         widgets = {
         }
         exclude = [
@@ -101,12 +101,11 @@ class IngredientLine(ModelForm):
                     Div(Field(
                         'related_ingredient', css_class="selectpicker",
                         data_live_search="true", data_size="5"),
-                        css_class="col-sm-4"),
+                        css_class="col-sm-6"),
                     Div(Field('amount'), css_class="col-sm-4"),
-                    Div(Field(
-                        'unit', css_class="selectpicker",
-                        data_live_search="true", data_size="5"),
-                        css_class="col-sm-4"),
+                    Div(
+                        css_class="col-sm-2 align-self-middle mt-2",
+                        id=self.prefix),
                     Div(
                         Field('DELETE', css_class='d-none'),
                         css_class="d-none"),
@@ -114,7 +113,6 @@ class IngredientLine(ModelForm):
                 ),
                 css_class='col-md-11'
             ),
-
         )
 
 

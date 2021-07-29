@@ -46,7 +46,7 @@ class Meal(models.Model):
         blank=False, null=False, default=0,
         validators=[MinValueValidator(0), MaxValueValidator(360)])
     recipe = models.TextField(blank=True)
-    notes = models.TextField(blank=True)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -56,28 +56,15 @@ class Meal(models.Model):
 
 
 class MealIngredient(models.Model):
-    unit_code = [
-        ('1', 'item'),
-        ('2', 'millilitre'),
-        ('3', 'pint'),
-        ('4', 'teaspoon'),
-        ('5', 'tablespoon'),
-        ('6', 'gram'),
-        ('7', 'ounce'),
-        ('8', 'piece'),
-        ('9', 'pinch'),
-        ('10', 'cup'),
-    ]
     meal_id = models.ForeignKey(
         Meal, verbose_name='Related Meal',
-        on_delete=models.SET_NULL, null=True)
+        on_delete=models.SET_NULL, null=True, related_name='ingredients')
     related_ingredient = models.ForeignKey(
         Ingredient, blank=True, null=True, default=None,
         on_delete=models.CASCADE, related_name='+')
     amount = models.DecimalField(
         blank=False, max_digits=6, decimal_places=2, null=False,
         default=Decimal('0.00'))
-    unit = models.CharField(max_length=2, choices=unit_code, default='1')
 
     def __str__(self):
         return str(f'{self.related_ingredient}')
