@@ -14,10 +14,12 @@
 			<div class="name_block">
 				<h3 class="underline heading">{{ meal.name }}</h3>
 				<h5>{{ meal.related_category }}</h5>
+				<small>{{ meal.description|safe }}</small>
 				<br>
-				<br>
-				<h4><span class='heading'>Prep Time:</span> {{ meal.prep_time }} mins</h4>
-				<h4><span class='heading'>Cook Time:</span> {{ meal.cook_time }} mins</h4>
+				<h4>
+					<span class='heading'>Prep Time:</span> {{ meal.prep_time }} mins<br>
+					<span class='heading'>Cook Time:</span> {{ meal.cook_time }} mins
+				</h4>
 			</div>
 			<div class="ing_block">
 				<h3 class="underline heading">Ingredients</h3>
@@ -25,10 +27,10 @@
 					<ul>
 						{% for i in ingredients %}
 						<li>
-							{% if i.unit == '1' %}
+							{% if i.related_ingredient.default_unit == '1' %}
 								{{ i.amount|floatformat:'-2' }} {{ i.related_ingredient }}{% if i.amount > 1 %}s{% endif %}
 							{% else %}
-								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.get_unit_display }}{% if i.amount >= 1 %}s{% endif %})
+								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.related_ingredient.get_default_unit_display }}{% if i.amount >= 1 %}s{% endif %})
 							{% endif %}
 						</li>
 						{% endfor %}
@@ -39,10 +41,6 @@
 		<div class="recipe_area">
 			<h3 class="underline heading">Recipe</h3>
 			{{ meal.recipe|safe }}
-		</div>
-		<div class="note_area">
-			<h3 class="underline heading">Notes</h3>
-			{{ meal.notes|safe }}
 		</div>
   </div>
 	<footer id="footer-area" class="footer">

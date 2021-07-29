@@ -1,0 +1,89 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>{{ week.name }} - Planned Meals</title>
+<body>
+  <div class="container page_copy">
+		<div class="header_block">
+			<div class="logo_block">
+				<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				<p class='brand'>Meal Planner</p>
+			</div>
+			<h3 class="underline heading">{{ week.name }}</h3>
+		</div>
+		<div class="sum_name_block">
+			<h3 class="underline heading">This weeks selected meals:</h3>
+			{% for meal in meals %}
+			<p>{{ meal.meal_day|capfirst }} {{ meal.meal_date|date:'jS F Y' }}: {{ meal.related_meal.name }} ({{ meal.related_meal.related_category}})</p>
+			{% endfor %}
+		</div>
+		<div class="sum_ing_block">
+			<h3 class="underline heading">Ingredients you need require for this weeks meals:</h3>
+			<ul>
+			{% for ing in ingredients %}
+			<li>
+				{% if ing.related_ingredient.default_unit == '1' %}
+					{{ ing.amount|floatformat:'-2' }} {{ ing.related_ingredient }}{% if ing.amount > 1 %}s{% endif %}
+				{% else %}
+					{{ ing.related_ingredient }} ({{ ing.amount|floatformat:'-2' }} {{ ing.related_ingredient.get_default_unit_display }}{% if ing.amount > 1 %}s{% endif %})
+				{% endif %}
+			</li>
+			{% endfor %}
+			</ul>
+		</div>
+		<div class="footer_block">
+			<p>P.T.O for individual recipe cards for the meals selected for this week.</p>
+		</div>
+  </div>
+	{% for meal in meals %}
+  <div class="container page_copy">
+		<div class="header_block">
+			<div class="logo_block">
+				<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				<p class='brand'>Meal Planner</p>
+			</div>
+			<h3 class="underline heading">{{ meal.meal_day|capfirst }} {{ meal.meal_date|date:'jS F Y' }}</h3>
+		</div>
+		<div class="header_area">
+			<div class="name_block">
+				<h3 class="underline heading">{{ meal.related_meal.name }}</h3>
+				<h5>{{ meal.related_meal.related_category }}</h5>
+				<small>{{ meal.related_meal.description|safe }}</small>
+				<br>
+				<h4>
+					<span class='heading'>Prep Time:</span> {{ meal.related_meal.prep_time }} mins<br>
+					<span class='heading'>Cook Time:</span> {{ meal.related_meal.cook_time }} mins
+				</h4>
+			</div>
+			<div class="ing_block">
+				<h3 class="underline heading">Ingredients</h3>
+				<div class="ing_list">
+					<ul>
+						{% for i in meal.related_meal.ingredients.all %}
+						<li>
+							{% if i.related_ingredient.default_unit == '1' %}
+								{{ i.amount|floatformat:'-2' }} {{ i.related_ingredient }}{% if i.amount > 1 %}s{% endif %}
+							{% else %}
+								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.related_ingredient.get_default_unit_display }}{% if i.amount > 1 %}s{% endif %})
+							{% endif %}
+						</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="recipe_area">
+			<h3 class="underline heading">Recipe</h3>
+			{{ meal.related_meal.recipe|safe }}
+		</div>
+  </div>
+	<footer id="footer-area" class="footer">
+		<p class=""> 2021 Chris Lowe.</p>
+	</footer>
+	{% endfor %}
+	<footer id="footer-area" class="footer">
+		<p class=""> 2021 Chris Lowe.</p>
+	</footer>
+</body>
