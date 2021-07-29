@@ -50,6 +50,11 @@ function cloneMore(selector, prefix) {
         var id = name;
         $(this).attr({'id': id}).val('').removeAttr('checked');
     });
+    ing_div = 'div[id^=' + prefix +'-]'
+    newElement.find(ing_div).each(function() {
+        var name = $(this).attr('id').replace('-' + (total-1), '-' + total);
+        $(this).attr({'id': name}).html('');
+    });
     var submit_id = prefix + '_submit-id-'
     newElement.find(':input[id^=' + submit_id + ']').each(function() {
         var name = $(this).attr('id').replace(submit_id + (total-1), submit_id + total);

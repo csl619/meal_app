@@ -16,8 +16,8 @@ $(document).ready( function () {
         ],
         "columns": [
             {"class" : "align-middle pl-2", "data": "name", "name": "name"},
-            {"class" : "align-middle text-center", "data": "date_added", "name": "date_added", 'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')
-            },
+            {"class" : "align-middle text-center", "data": "unit", "name": "unit"},
+            {"class" : "align-middle text-center", "data": "date_added", "name": "date_added", 'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
         ],
         "deferRender": true,
         "scrollX": true,
@@ -27,8 +27,8 @@ $(document).ready( function () {
         "ordering": false,
         "info": false,
         "columnDefs": [
-          { "width": "70%", "targets": [0] },
-          { "width": "30%", "targets": [1] },
+          { "width": "40%", "targets": [0] },
+          { "width": "30%", "targets": [1, 2]},
         ],
         "initComplete": function() {
             $(this).show();
@@ -116,7 +116,7 @@ $(document).ready( function () {
             {"class" : "align-middle text-center",
               "data": "id", "name": "id",
               "render": function ( data, type, row, meta ) {
-                return "<a class='btn btn-sm btn-secondary' href='/meals/"+data+"/pdf/' target='_blank'><i class='far fa-file-pdf mr-1'></i>View</a>";
+                return "<a class='btn btn-sm btn-secondary' href='/planned_weeks/"+data+"/pdf/' target='_blank'><i class='far fa-file-pdf mr-1'></i>View</a>";
               }
             },
         ],

@@ -1,4 +1,4 @@
-// add ingredient or category via new meal page
+// add category via new meal page
 $(document).on('click','#add_item_but', function(event) {
   event.preventDefault()
   var url = $('#add_item_but').attr("data-url");
@@ -28,6 +28,45 @@ $(document).on('click','#add_item_but', function(event) {
           $('#add_item_but').attr("data-url", '');
           $('#add_item_but').attr("data-update-url", '');
           $('#add_item_but').attr("data-sub-type", '');
+          $(item).val("");
+          update_dropdowns(dropdowns, update_url)
+        }
+      }
+    });
+  }
+});
+// add ingredient via new meal page
+$(document).on('click','#add_miss_ing_but', function(event) {
+  event.preventDefault()
+  var url = $('#add_miss_ing_but').attr("data-url");
+  var update_url = $('#add_miss_ing_but').attr("data-update-url");
+  var sub_type = $('#add_miss_ing_but').attr("data-sub-type");
+  var failed = '#add_failed';
+  var added = '#' + sub_type + '_added';
+  var modal = '#missing_ing_modal';
+  var item = $("input[id=ing-name]")
+  var unit = $("select[id=ing-default_unit]")
+  var {dropdowns} = check_category(sub_type)
+  if(!!item.val()){
+    $.ajax({
+      url: url,
+      data: {
+        'item': item.val(),
+        'unit': unit.val()
+      },
+      success: function (data) {
+        if (data.exists) {
+          message_wait_and_hide(failed, data.message)
+        }
+        else {
+          message_wait_and_hide(added, data.message)
+          $(modal).modal('hide');
+          $('#po_title').text($('#po_title').text().replace(sub_type ,'**placeholder**'));
+          $('#action_text').text($('#action_text').text().replace(sub_type ,'**placeholder**'));
+          $('#add_miss_ing_but').prop('text', $('#add_miss_ing_but').text().replace(sub_type ,'**placeholder**'));
+          $('#add_miss_ing_but').attr("data-url", '');
+          $('#add_miss_ing_but').attr("data-update-url", '');
+          $('#add_miss_ing_but').attr("data-sub-type", '');
           $(item).val("");
           update_dropdowns(dropdowns, update_url)
         }
@@ -85,7 +124,7 @@ $(document).on('click','#update_email_but', function(event) {
     });
   }
 });
-// function to update user email address
+// function to update user food order day
 $(document).on('click','#update_order_day_but', function(event) {
   event.preventDefault()
   var url = $(this).attr("data-url");
@@ -103,7 +142,7 @@ $(document).on('click','#update_order_day_but', function(event) {
     });
   }
 });
-// function to update user email address
+// function to update user meal repeat
 $(document).on('submit','#edit_repeat_form', function(event) {
   event.preventDefault()
   var url = $(this).attr("action");
@@ -116,6 +155,25 @@ $(document).on('submit','#edit_repeat_form', function(event) {
       },
       success: function (data) {
         location.reload()
+      }
+    });
+  }
+});
+// function to get selected ingredient unit
+$(document).on('change','[id^=id_ings-][id$=-related_ingredient]', function(event) {
+  event.preventDefault()
+  var url = '/ajax/get_ing_unit/';
+  var item = $(this).val()
+  var text_field = "#" + $(this).attr("id").replace('-related_ingredient', '').replace('id_', '')
+  console.log(text_field)
+  if(!!item){
+    $.ajax({
+      url: url,
+      data: {
+        'item': item,
+      },
+      success: function (data) {
+         $(text_field).html(data['unit'])
       }
     });
   }
