@@ -7,6 +7,9 @@ from planner.models import Week
 
 class IngredientSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
+    unit = serializers.CharField(
+        source='get_default_unit_display'
+    )
 
     class Meta:
         model = Ingredient
