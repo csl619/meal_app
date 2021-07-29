@@ -67,7 +67,7 @@ def process_week(u, week):
         if day['week_index'] == 6:
             w_end = day['date']
     week_record = Week(
-        name=f'Week Ending: {w_end.strftime("%d-%m-%Y")}',
+        name=f'Week Ending: {w_end.strftime("%A %d %B %Y")}',
         week_start=w_start,
         week_end=w_end,
         related_user=u

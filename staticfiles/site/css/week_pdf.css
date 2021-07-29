@@ -3,7 +3,7 @@
       margin: 0px ;
   }
 @media print {
-  #page_copy {
+  .page_copy {
     page-break-before: always;
   }
 }
@@ -36,24 +36,35 @@ p {
   display: flex;
   align-items: center;
 }
+.header_block {
+  justify-content: space-between !important;
+  display: flex;
+}
+.footer_block {
+  padding: 20px;
+  margin: 10px 0px 0px 10px;
+}
 #site_logo {
   margin-left: 15%;
   width: 50px;
   height: 50px;
 }
-.recipe_area, .name_block, .ing_block, .note_area {
+.header_block #site_logo {
+  margin-right: 45%;
+}
+.recipe_area, .name_block, .ing_block, .note_area, .sum_ing_block, .sum_name_block {
   background-color: #f7f7f7;
   border-radius: 10px;
   padding: 20px;
-  margin: 10px 10px 0px 10px;
+  margin: 10px 0px 0px 10px;
   min-height: 200px;
   font-size: 12px;
 }
-.note_area {
-  min-height: 100px;
-}
 .ing_block {
-  width: 60%;
+  width: 65%;
+}
+.name_block {
+  width: 35%;
 }
 ul {
   list-style: none;
