@@ -26,14 +26,14 @@
             <div class="row ">
               <div class="col-md-11">
                 <div class="row">
-                  <div class="col-sm-4">
+                  <div class="col-sm-6">
                     Ingredient<span class="asteriskField">*</span>
                   </div>
                   <div class="col-sm-4">
                     Amount<span class="asteriskField">*</span>
                   </div>
-                  <div class="col-sm-4">
-                    Unit<span class="asteriskField">*</span>
+                  <div class="col-sm-2">
+                    Unit Type
                   </div>
                 </div>
               </div>
@@ -51,7 +51,7 @@
             </div>
             {% endfor %}
             <div class="row justify-content-left">
-              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-url="{% url 'ajax_new_ingredient' %}" data-update-url="{% url 'ajax_update_ingredients' %}" data-sub-type="ingredient" data-target="#missing_item_modal">
+              <a id='ingModelButton' title="Add Ingredient" class='btn btn-sm btn-light ml-2' href="" data-toggle="modal" data-url="{% url 'ajax_new_ingredient' %}" data-update-url="{% url 'ajax_update_ingredients' %}" data-sub-type="ingredient" data-target="#missing_ing_modal">
                 <i class="fas fa-plus mr-3"></i>
                 Add Missing Ingredient
               </a>
@@ -94,6 +94,57 @@
             <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
             <a id='add_item_but' class='btn btn-info' href='' data-url="" data-update-url="" data-sub-type="">
               Add **placeholder**
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="missing_ing_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <form id='miss_ing_form' data-token="{{ csrf_token }}" method="POST">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="po_title">Add missing Ingredient</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p id='action_text'>Please enter the missing ingredient details:</p>
+            <div id="div_id-name" class="form-group row">
+              <label for="ing-name" class="col-form-label col-12 requiredField">Name<span class="asteriskField">*</span></label>
+              <div class="col-12">
+                <input type="text" name="name" maxlength="100" class="textinput textInput form-control" required id="ing-name">
+              </div>
+            </div>
+            <div id="div_id-default_unit" class="form-group row">
+              <label for="ing-default_unit" class="col-form-label col-12 requiredField">Default unit<span class="asteriskField">*</span></label>
+              <div class="col-12">
+                <div class="dropdown bootstrap-select form-control">
+                  <select name="default_unit" class="selectpicker form-control" data-live-search="true" data-size="5" id="ing-default_unit" tabindex="null">
+                    <option value="1" selected="">item</option>
+                    <option value="2">millilitre</option>
+                    <option value="3">pint</option>
+                    <option value="4">teaspoon</option>
+                    <option value="5">tablespoon</option>
+                    <option value="6">gram</option>
+                    <option value="7">ounce</option>
+                    <option value="8">piece</option>
+                    <option value="9">pinch</option>
+                    <option value="10">cup</option>
+                    <option value="11">clove</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <p class='mb-0 text-danger'><small id='add_failed' class='d-none'></small></p>
+          </div>
+          <div class="modal-footer d-flex justify-content-between">
+            <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+            <a id='add_miss_ing_but' class='btn btn-info' href='' data-url="" data-update-url="" data-sub-type="">
+              Add Ingredient
             </a>
           </div>
         </form>
