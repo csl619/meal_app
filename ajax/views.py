@@ -14,11 +14,13 @@ from users.models import Profile
 @login_required
 def add_ingredient(request):
     ingredient = request.GET.get('item')
+    unit = request.GET.get('unit')
     ingredient_present = Ingredient.objects.filter(name=ingredient).exists()
     data = {'exists': ingredient_present}
     if not ingredient_present:
         ing_form = Ingredient(
             name=ingredient,
+            default_unit=unit,
             related_user=request.user
         )
         ing_form.save()
@@ -43,6 +45,18 @@ def update_ingredients(request):
     for ingredient in ingredients:
         data['items'] += (
             f'<option value="{ingredient.pk}">{ingredient.name}</option>')
+    return JsonResponse(data)
+
+
+# reload ingredient list once new ingredient is added
+@login_required
+def get_ing_unit(request):
+    item = request.GET.get('item')
+    ingredient = Ingredient.objects.filter(
+        id=item).first()
+    data = {
+        'unit': f'<small>{ingredient.get_default_unit_display()}(s)</small>'
+        }
     return JsonResponse(data)
 
 

@@ -25,4 +25,7 @@ urlpatterns = [
     path(
         'update_user_meal_repeat/', views.update_user_meal_repeat,
         name='ajax_update_meal_repeat'),
+    path(
+        'get_ing_unit/', views.get_ing_unit,
+        name='ajax_get_ing_unit'),
 ]
