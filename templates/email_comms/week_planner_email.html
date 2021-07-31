@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Your planned meals for this week are:</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    html {
+      background-color: #f0f0f0;
+    }
+    .app_but {
+      display: inline-block;
+      width: 150px;
+      padding: 10px;
+      margin: 10px;
+      text-align: center;
+      border-radius: 5px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      -webkit-text-size-adjust:none;
+      mso-hide:all;
+    }
+    .approve {
+      background: #5bc0de;
+    }
+    .decline{
+      background: #d9534f;
+    }
+  </style>
+</head>
+<body style="margin: 20px; padding: 30px 0 30px 0;">
+  <table align="center" border="0" cellpadding="0" cellspacing="0" width="600" style="border: 1px solid #cccccc;">
+  <tr>
+    <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+      <table border="0" cellpadding="0" cellspacing="0" width="100%">
+       <tr>
+        <td style="font-family: Arial, sans-serif; font-size: 16px;">
+         <p>Hey {{ user.first_name}},</p>
+         <br />
+        </td>
+       </tr>
+       <tr>
+        <td style="font-family: Arial, sans-serif; font-size: 16px;">
+            <b>Here are your meal selections for this week.</b>
+            <!--[if mso]>
+              <br />
+            <![endif]-->
+            <br />
+        </td>
+       </tr>
+       <tr>
+        <td style="font-family: Arial, sans-serif; font-size: 16px; line-height: 20px;">
+            <p>Please find attached a pdf copy of your planned meals for this week, we hope you enjoy!</p>
+             <!--[if mso]>
+               <br />
+             <![endif]-->
+            <p>Kind Regards,</p>
+            <!--[if mso]>
+              <br />
+            <![endif]-->
+            <p>Meal Planner</p>
+            <!--[if mso]>
+              <br />
+            <![endif]-->
+        </td>
+       </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" bgcolor="#e2e2e2" style="padding: 20px 30px 20px 30px; font-family: Arial, sans-serif; font-size: 14px;">
+     <p>&copy; Chris Lowe 2021 </p>
+    </td>
+  </tr>
+  </table>
+</body>
+</html>
