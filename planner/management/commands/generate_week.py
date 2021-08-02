@@ -1,7 +1,5 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import User
-from django.http import HttpRequest
-from django.conf import settings
 from django.utils.text import slugify
 from django.db.models import Q
 
@@ -10,11 +8,11 @@ from random import choice as rand_choice
 
 from ingredients.models import Ingredient
 from meals.models import Meal, MealIngredient
-from pdf_files.scripts.templates import week_pdf
+from pdf_files.scripts.templates import Pdf
 from planner.models import Week, WeekDays, WeekIngredient
-from planner.scripts.email_comms import send_email
+from planner.scripts.email_comms import Email
 from users.models import Profile
-from pprint import pprint
+from os import getenv
 
 
 # Command for creating weekly planners for each user on a specified day.
@@ -25,9 +23,18 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        class Ingredient_Item:
+            def __init__(self, id, amount, unit):
+                self.id = id
+                self.amount = amount
+                self.unit = unit
+
+            def update_amount(self, val):
+                self.amount += val
+
         def get_users():
-            # users = User.objects.filter(profile__food_order_day=date.today().weekday())
-            users = User.objects.filter(profile__food_order_day=0)
+            users = User.objects.filter(
+                profile__food_order_day=date.today().weekday())
             return users
 
         def get_week():
@@ -84,7 +91,7 @@ class Command(BaseCommand):
                 related_user=u
             )
             week_record.save()
-            ingredients = {}
+            week_ings = {}
             for day in week:
                 week_day = WeekDays(
                     related_week=week_record,
@@ -95,51 +102,75 @@ class Command(BaseCommand):
                 week_day.save()
                 ing_list = MealIngredient.objects.filter(meal_id=day['meal'])
                 for ing in ing_list:
-                    if ing.related_ingredient.name in ingredients:
-                        ingredients[ing.related_ingredient.name]['amount'] += ing.amount
+                    ing_id = ing.related_ingredient.id
+                    if ing_id in week_ings:
+                        week_ings[ing_id].update_amount(ing.amount)
                     else:
-                        ingredients[ing.related_ingredient.name] = {
-                            'id': ing.related_ingredient.id,
-                            'amount': ing.amount,
-                            'unit': ing.related_ingredient.get_default_unit_display(),
-                        }
-            for i in ingredients:
+                        week_ings[ing_id] = Ingredient_Item(
+                            ing.related_ingredient.id, ing.amount,
+                            ing.related_ingredient.get_default_unit_display(),
+                        )
+            for name, item in week_ings.items():
                 week_ing = WeekIngredient(
                     week_id=week_record,
                     related_ingredient=Ingredient.objects.filter(
-                        id=ingredients[i]['id']).first(),
-                    amount=ingredients[i]['amount']
+                        id=item.id).first(),
+                    amount=item.amount
                 )
                 week_ing.save()
             return week_record
 
-        def get_week_pdf(pk):
-            request = HttpRequest()
-            request.method = 'GET'
-            request.META['SERVER_NAME'] = 'localhost'
-            request.META['SERVER_PORT'] = '8000'
-            request.META['STATICFILES_DIRS'] = (
-                settings.STATICFILES_DIRS)
-            request.META['STATIC_URL'] = settings.STATIC_URL
-            request.META['STATIC_ROOT'] = settings.STATIC_ROOT
-            pdf = week_pdf(request, pk, 'pdf')
-            return pdf
+        def get_week_pdf(item):
+            template = {
+                'template': 'planner/week_pdf.html',
+                'css': 'staticfiles/site/css/week_pdf.css'
+                }
+            data_vars = {
+                'week': item,
+                'ingredients': WeekIngredient.objects.filter(
+                    week_id=item).order_by('related_ingredient__name'),
+                'meals': WeekDays.objects.filter(related_week=item).order_by(
+                    'meal_date'),
+            }
+            pdf = Pdf(getenv("SITE_URL"), getenv("DIR_PATH"), True)
+            pdf.template(template)
+            pdf.context_data(data_vars)
+            pdf.name(f'WE{item.week_end}_planned_meals')
+            return {
+                'name': f"Meal_Planner_WE{slugify(item.week_end)}.pdf",
+                'file': pdf.generate(),
+                'type': "application/pdf"
+                }
+
+        def send_email(u, file):
+            context_vars = {
+                'user': u
+            }
+            email = Email(
+                getenv("ADMIN_HOST"),
+                getenv("ADMIN_PORT"),
+                getenv("ADMIN_EMAIL"),
+                getenv("ADMIN_PASSWORD"),
+                getenv("ADMIN_TLS") == 'True',
+                getenv("DEBUG_TYPE") == 'True',
+                )
+            email.subject(
+                'Meal Planner | Here are this weeks planned meals!')
+            email.body(
+                'email_comms/week_planner_email.html', context_vars)
+            email.attachments([file])
+            email.recipients([u.email])
+            email.sender('chris@sixonenine.co.uk')
+            email.send()
 
         def main():
             users = get_users()
             for u in users:
                 week = get_week()
                 week_items = get_week_items(u, week)
-                pprint(week_items)
                 run_week = process_week(u, week_items)
-                file = get_week_pdf(run_week.id)
-                file_item = {
-                    'name': f"{slugify(process_week.name)}.pdf",
-                    'file': file,
-                    'type': "application/pdf"
-                    }
-                e = send_email(run_week.id, [file_item], u)
-                e.week_planner_email()
+                file = get_week_pdf(run_week)
+                send_email(u, file)
 
         main()
 
