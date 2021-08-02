@@ -6,7 +6,7 @@
 <div class="row justify-content-center">
   <div class="col-12">
     <div class="jumbotron user_profile">
-      <h4 class='border-bottom'>{{ user.first_name }} {{ user.last_name }} - Profile</h4>
+      <h4 class='border-bottom'>{{ user.username|capfirst}} - Profile</h4>
     </div>
   </div>
 </div>
@@ -108,7 +108,7 @@
             <div id="div_id-email" class="form-group row">
               <label for="id-name" class="col-form-label col-12 requiredField">Email<span class="asteriskField">*</span></label>
               <div class="col-12">
-                <input type="email" name="name" maxlength="100" class="textinput textInput form-control" required id="id-email">
+                <input type="email" name="name" maxlength="100" value="{{ user.email }}" class="textinput textInput form-control" required id="id-email">
               </div>
             </div>
           </div>
@@ -137,14 +137,13 @@
             <p id='action_text'>Please enter the day you will be ordering food on:</p>
             <div id="div_id-order_day" class="form-group">
               <select class="form-control selectpicker" data-live-search="true" data-size="5" name="order_day" id="order_day">
-                <option value="" selected disabled hidden>--------</option>
-                <option value="0">Monday</option>
-                <option value="1">Tuesday</option>
-                <option value="2">Wednesday</option>
-                <option value="3">Thursday</option>
-                <option value="4">Friday</option>
-                <option value="5">Saturday</option>
-                <option value="6">Sunday</option>
+                <option value="0" {% if profile.food_order_day == 0 %}selected{% endif %}>Monday</option>
+                <option value="1" {% if profile.food_order_day == 1 %}selected{% endif %}>Tuesday</option>
+                <option value="2" {% if profile.food_order_day == 2 %}selected{% endif %}>Wednesday</option>
+                <option value="3" {% if profile.food_order_day == 3 %}selected{% endif %}>Thursday</option>
+                <option value="4" {% if profile.food_order_day == 4 %}selected{% endif %}>Friday</option>
+                <option value="5" {% if profile.food_order_day == 5 %}selected{% endif %}>Saturday</option>
+                <option value="6" {% if profile.food_order_day == 6 %}selected{% endif %}>Sunday</option>
               </select>
             </div>
           </div>

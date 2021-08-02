@@ -35,6 +35,36 @@ $(document).on('click','#add_item_but', function(event) {
     });
   }
 });
+// add category via new profile page
+$(document).on('click','#add_cat_but', function(event) {
+  event.preventDefault()
+  var url = $(this).attr("data-url");
+  var update_url = $(this).attr("data-update-url");
+  var failed = '#add_failed';
+  var added = '#category_added';
+  var modal = '#cat_modal';
+  var item = $("input[id=id-name]")
+  var {dropdowns} = $("select[id^=id_][id$=day]")
+  if(!!item.val()){
+    $.ajax({
+      url: url,
+      data: {
+        'item': item.val(),
+      },
+      success: function (data) {
+        if (data.exists) {
+          message_wait_and_hide(failed, data.message)
+        }
+        else {
+          message_wait_and_hide(added, data.message)
+          $(modal).modal('hide');
+          $(item).val("");
+          update_dropdowns(dropdowns, update_url)
+        }
+      }
+    });
+  }
+});
 // add ingredient via new meal page
 $(document).on('click','#add_miss_ing_but', function(event) {
   event.preventDefault()

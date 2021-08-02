@@ -7,4 +7,5 @@ urlpatterns = [
     path(
         'update_meal_categories/', user_views.edit_meal_cats,
         name='edit_meal_cats'),
+    path('new_user_setup', user_views.new_user_setup, name='new_user_setup')
 ]

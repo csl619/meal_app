@@ -20,7 +20,6 @@ def get_date_list(u):
             today_check = True
         meal = WeekDays.objects.filter(
             meal_date=day, related_week__related_user=u).first()
-        print(meal)
         week_list.append({
             'date': day,
             'week_day': week_day,

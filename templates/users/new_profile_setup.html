@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row">
+  <div class="col-sm-8 offset-sm-2">
+    <div class="jumbotron mt-4">
+      <h1 class="border-bottom pb-2">New Profile Setup</h1>
+      <p>Please complete the form below to set up your profile.</p>
+      <div class="content-section">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            {% crispy pForm %}
+          </div>
+          <div class="row justify-content-between">
+            <div class="col-12 d-flex align-items-center justify-content-between mt-6 mb-4">
+              <a id='catModelButton' title="Add Category" class='btn btn-light' href="" data-toggle="modal" data-url="{% url 'ajax_new_category' %}" data-update-url="{% url 'ajax_update_categories' %}" data-sub-type="category" data-target="#cat_modal">
+                <i class="fas fa-plus mr-3"></i>
+                Add Missing Meal Category
+              </a>
+              <button class="btn btn-outline-info" type="submit" name='Submit'>Submit</button>
+            </div>
+            <p class='mb-0'><small id='category_added' class='d-none'></small></p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cat_modal" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <form id='new_cat_form' data-token="{{ csrf_token }}" method="POST">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="po_title">Add new category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p id='action_text'>Please enter the category name:</p>
+          <div id="div_id-name" class="form-group row">
+            <label for="id-name" class="col-form-label col-12 requiredField">Name<span class="asteriskField">*</span></label>
+            <div class="col-12">
+              <input type="text" name="name" maxlength="100" class="textinput textInput form-control" required id="id-name">
+            </div>
+          </div>
+          <p class='mb-0 text-danger'><small id='add_failed' class='d-none'></small></p>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+          <a id='add_cat_but' class='btn btn-info' href='' data-url="{% url 'ajax_new_category' %}" data-update-url="{% url 'ajax_update_categories' %}">
+            Add Category
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

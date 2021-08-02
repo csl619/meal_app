@@ -16,6 +16,7 @@ class Profile(models.Model):
         ('6', 'Sunday'),
     ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_setup = models.BooleanField(default=False)
     monday = models.ForeignKey(
         MealCategory, verbose_name='Meal Type - Monday',
         on_delete=models.SET_NULL, null=True, blank=True, related_name='+')
