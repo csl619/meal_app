@@ -8,7 +8,11 @@
   <div class="container page_copy">
 		<div class="header_block">
 			<div class="logo_block">
-				<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				{% if not browser_output %}
+					<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				{% else %}
+					<img src="{{ directory }}staticfiles/site/logo.png" id='site_logo' alt="logo">
+				{% endif %}
 				<p class='brand'>Meal Planner</p>
 			</div>
 			<h3 class="underline heading">{{ week.name }}</h3>
@@ -41,7 +45,11 @@
   <div class="container page_copy">
 		<div class="header_block">
 			<div class="logo_block">
-				<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				{% if not browser_output %}
+					<img src="http://{{ site_url }}/static/site/logo.png" id='site_logo' alt="logo">
+				{% else %}
+					<img src="{{ directory }}staticfiles/site/logo.png" id='site_logo' alt="logo">
+				{% endif %}
 				<p class='brand'>Meal Planner</p>
 			</div>
 			<h3 class="underline heading">{{ meal.meal_day|capfirst }} {{ meal.meal_date|date:'jS F Y' }}</h3>
