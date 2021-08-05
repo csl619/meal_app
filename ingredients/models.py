@@ -4,17 +4,17 @@ from django.contrib.auth.models import User
 
 class Ingredient(models.Model):
     unit_code = [
-        ('1', 'item'),
-        ('2', 'millilitre'),
-        ('3', 'pint'),
-        ('4', 'teaspoon'),
-        ('5', 'tablespoon'),
-        ('6', 'gram'),
-        ('7', 'ounce'),
-        ('8', 'piece'),
-        ('9', 'pinch'),
-        ('10', 'cup'),
-        ('11', 'clove'),
+        ('1', 'item(s)'),
+        ('2', 'millilitre(s)'),
+        ('3', 'pint(s)'),
+        ('4', 'teaspoon(s)'),
+        ('5', 'tablespoon(s)'),
+        ('6', 'gram(s)'),
+        ('7', 'ounce(s)'),
+        ('8', 'piece(s)'),
+        ('9', 'pinch(s)'),
+        ('10', 'cup(s)'),
+        ('11', 'clove(s)'),
     ]
 
     name = models.CharField(
