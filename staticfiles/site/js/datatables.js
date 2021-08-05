@@ -16,7 +16,9 @@ $(document).ready( function () {
         ],
         "columns": [
             {"class" : "align-middle pl-2", "data": "name", "name": "name"},
-            {"class" : "align-middle text-center", "data": "unit", "name": "unit"},
+            {"class" : "align-middle text-center", "data": "unit", "name": "unit", "render": function ( data, type, row, meta ) {
+                return data+"(s)";
+              }},
             {"class" : "align-middle text-center", "data": "date_added", "name": "date_added", 'render': $.fn.dataTable.render.moment('YYYY-MM-DD', 'DD-MMM-YYYY', 'en-gb')},
         ],
         "deferRender": true,
