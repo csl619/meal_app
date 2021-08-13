@@ -4,7 +4,7 @@
     "pk": 10,
     "fields": {
       "meal_id": 2,
-      "amount": 10.75,
+      "amount": 1,
       "related_ingredient": 9
     }
   },
@@ -13,7 +13,7 @@
     "pk": 11,
     "fields": {
       "meal_id": 3,
-      "amount": 66.69,
+      "amount": 2,
       "related_ingredient": 1
     }
   },
@@ -22,7 +22,7 @@
     "pk": 12,
     "fields": {
       "meal_id": 4,
-      "amount": 116.86,
+      "amount": 1,
       "related_ingredient": 2
     }
   },
@@ -31,7 +31,7 @@
     "pk": 13,
     "fields": {
       "meal_id": 5,
-      "amount": 435.43,
+      "amount": 2,
       "related_ingredient": 3
     }
   },
@@ -40,7 +40,7 @@
     "pk": 14,
     "fields": {
       "meal_id": 6,
-      "amount": 381.76,
+      "amount": 1,
       "related_ingredient": 1
     }
   },
@@ -49,7 +49,7 @@
     "pk": 15,
     "fields": {
       "meal_id": 7,
-      "amount": 83.25,
+      "amount": 2,
       "related_ingredient": 5
     }
   },
@@ -58,7 +58,7 @@
     "pk": 16,
     "fields": {
       "meal_id": 8,
-      "amount": 106.27,
+      "amount": 1,
       "related_ingredient": 7
     }
   },
@@ -67,7 +67,7 @@
     "pk": 17,
     "fields": {
       "meal_id": 9,
-      "amount": 279.19,
+      "amount": 2,
       "related_ingredient": 6
     }
   },
@@ -76,7 +76,7 @@
     "pk": 18,
     "fields": {
       "meal_id": 10,
-      "amount": 248.53,
+      "amount": 1,
       "related_ingredient": 9
     }
   },
@@ -85,7 +85,7 @@
     "pk": 19,
     "fields": {
       "meal_id": 11,
-      "amount": 163.16,
+      "amount": 2,
       "related_ingredient": 4
     }
   },
@@ -94,7 +94,7 @@
     "pk": 20,
     "fields": {
       "meal_id": 12,
-      "amount": 16.67,
+      "amount": 1,
       "related_ingredient": 2
     }
   },
@@ -103,7 +103,7 @@
     "pk": 21,
     "fields": {
       "meal_id": 13,
-      "amount": 71.25,
+      "amount": 2,
       "related_ingredient": 1
     }
   },
@@ -112,7 +112,7 @@
     "pk": 22,
     "fields": {
       "meal_id": 14,
-      "amount": 354.7,
+      "amount": 1,
       "related_ingredient": 5
     }
   },
@@ -121,7 +121,7 @@
     "pk": 23,
     "fields": {
       "meal_id": 15,
-      "amount": 322.36,
+      "amount": 2,
       "related_ingredient": 9
     }
   },
@@ -130,7 +130,7 @@
     "pk": 24,
     "fields": {
       "meal_id": 16,
-      "amount": 379.23,
+      "amount": 1,
       "related_ingredient": 6
     }
   },
@@ -139,7 +139,7 @@
     "pk": 25,
     "fields": {
       "meal_id": 17,
-      "amount": 348.81,
+      "amount": 2,
       "related_ingredient": 8
     }
   }
