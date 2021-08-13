@@ -25,14 +25,10 @@
 		</div>
 		<div class="sum_ing_block">
 			<h3 class="underline heading">Ingredients you need require for this weeks meals:</h3>
-			<ul>
+			<ul id='ing-order'>
 			{% for ing in ingredients %}
 			<li>
-				{% if ing.related_ingredient.default_unit == '1' %}
-					{{ ing.amount|floatformat:'-2' }} {{ ing.related_ingredient }}{% if ing.amount > 1 %}s{% endif %}
-				{% else %}
-					{{ ing.related_ingredient }} ({{ ing.amount|floatformat:'-2' }} {{ ing.related_ingredient.get_default_unit_display }}{% if ing.amount > 1 %}s{% endif %})
-				{% endif %}
+				{{ ing.related_ingredient }} ({{ ing.amount|floatformat:'-2' }}{% if ing.related_ingredient.default_unit != '1' %} {{ ing.related_ingredient.get_default_unit_display }}{% endif %})
 			</li>
 			{% endfor %}
 			</ul>
@@ -71,11 +67,7 @@
 					<ul>
 						{% for i in meal.related_meal.ingredients.all %}
 						<li>
-							{% if i.related_ingredient.default_unit == '1' %}
-								{{ i.amount|floatformat:'-2' }} {{ i.related_ingredient }}{% if i.amount > 1 %}s{% endif %}
-							{% else %}
-								{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }} {{ i.related_ingredient.get_default_unit_display }}{% if i.amount > 1 %}s{% endif %})
-							{% endif %}
+							{{ i.related_ingredient }} ({{ i.amount|floatformat:'-2' }}{% if i.related_ingredient.default_unit != '1' %} {{ i.related_ingredient.get_default_unit_display }}{% endif %})
 						</li>
 						{% endfor %}
 					</ul>

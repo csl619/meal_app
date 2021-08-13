@@ -71,6 +71,9 @@ ul {
   margin: 0;
   padding: 0;
 }
+#ing-order {
+  columns: 2;
+}
 li::before {
     content: '\2022';
     padding-right: 1em;
