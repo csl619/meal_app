@@ -46,7 +46,7 @@ class Profile(models.Model):
         help_text=(
             'Changing this value affects how regularly the planner will select'
             ' the same meal. Please choose a value between 7 and 28 days. (The'
-            ' default is 7 days (1 week).'))
+            ' default is 7 days (1 week)).'))
 
     def __str__(self):
         return f'{self.user.username} - Profile'
