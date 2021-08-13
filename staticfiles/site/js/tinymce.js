@@ -6,6 +6,7 @@ tinymce.init({
     });},
   height: 300,
   menubar: false,
+  plugins: 'lists',
   toolbar: 'undo redo | bold italic underline | alignleft aligncenter alignright ' +
   'alignjustify | bullist numlist outdent indent | ' +
   'removeformat | help',

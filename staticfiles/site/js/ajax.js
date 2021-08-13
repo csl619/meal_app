@@ -8,7 +8,7 @@ $(document).on('click','#add_item_but', function(event) {
   var added = '#' + sub_type + '_added';
   var modal = '#missing_item_modal';
   var item = $("input[id=id-name]")
-  var {dropdowns} = check_category(sub_type)
+  var dropdowns = check_category(sub_type)
   if(!!item.val()){
     $.ajax({
       url: url,
@@ -44,7 +44,7 @@ $(document).on('click','#add_cat_but', function(event) {
   var added = '#category_added';
   var modal = '#cat_modal';
   var item = $("input[id=id-name]")
-  var {dropdowns} = $("select[id^=id_][id$=day]")
+  var dropdowns = $("select[id^=id_][id$=day]").not("select[id$=_day]")
   if(!!item.val()){
     $.ajax({
       url: url,
